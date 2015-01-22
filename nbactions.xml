@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-Run Cargo</actionName>
+            <displayName>Run Cargo</displayName>
+            <goals>
+                <goal>package cargo:run</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-Stop Cargo</actionName>
+            <displayName>Stop Cargo</displayName>
+            <goals>
+                <goal>cargo:stop</goal>
+            </goals>
+        </action>
+    </actions>

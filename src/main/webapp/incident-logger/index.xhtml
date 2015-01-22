@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/WEB-INF/templates/common/incidentLogger.xhtml">
+        <ui:define name="title">Incident Logger</ui:define>
+        <ui:define name="content">
+            <form id="incidentLogForm" onsubmit="logIncident(); return false;">
+                <div class="row">
+                    <div class="large-12 columns">
+                        <div id="container" class="panel">
+                            <div class="row">
+                                <div class="small-3">
+                                    <div class="row">
+                                        <div class="small-3 columns left">
+                                            <label for="Log" class="label">Log an Incident</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="small-12">
+                                    <div class="row">
+                                        <div class="small-5 columns">
+                                            <label for="input-completionTime" class="right inline"
+                                                   id="label-completionTime">Completion Time</label>
+                                        </div>
+                                        <div class="small-7 left columns">
+                                            <input type="text"
+                                                   name="completionTime"
+                                                   id="input-completionTime"
+                                                   placeholder="yyyy-MM-dd HH:mm" required="true" pattern=".{16,16}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="small-12">
+                                    <div class="row">
+                                        <div class="small-5 columns">
+                                            <label for="input-trackingID" class="right inline" id="label-trackingID">Tracking ID</label>
+                                        </div>
+                                        <div class="small-7 left columns">
+                                            <input type="text" name="trackingId" id="input-trackingID" placeholder="Enter a tracking ID" required="true" pattern=".{4,10}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="small-12">
+                                    <div class="row">
+                                        <div class="small-5 columns">
+                                            <label for="input-unLocCode" class="right inline" id="label-unLocCode">Location Code</label>
+                                        </div>
+                                        <div class="small-7 left columns">
+                                            <input type="text" name="unLocode" id="input-unLocCode" placeholder="Enter a Location Code" required="true" pattern=".{5,5}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="small-12">
+                                    <div class="row">
+                                        <div class="small-5 columns">
+                                            <label for="input-voyageNumber" class="right inline" id="label-voyageNumber">Voyage Number</label>
+                                        </div>
+                                        <div class="small-7 left columns">
+                                            <input type="text" name="voyageNumber" id="input-voyageNumber" placeholder="Enter a Voyage Number" pattern=".{5,5}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="small-12">
+                                    <div class="row">
+                                        <div class="small-5 columns">
+                                            <label for="select-eventType" id="label-eventType" class="right inline">Event Type</label>
+                                        </div>
+                                        <div class="small-7 left columns">
+                                            <select name="eventType" id="select-EventType">
+                                                <option selected="true" value="LOAD">LOAD</option>
+                                                <option value="UNLOAD">UNLOAD</option>
+                                                <option value="RECEIVE">RECEIVE</option>
+                                                <option value="CLAIM">CLAIM</option>
+                                                <option value="CUSTOMS">CUSTOMS</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="small-12">
+                                    <div class="row">
+                                        <div class="small-7 columns right">
+                                            <input type="submit" value="Log" class="round alert tiny button" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </ui:define>
+    </ui:composition>
+</html>

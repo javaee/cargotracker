@@ -1,0 +1,58 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/WEB-INF/templates/common/admin.xhtml">
+        <ui:define name="title">Cargo Administration</ui:define>
+        <ui:define name="header">
+            <style type="text/css">
+                td {
+                    align: left;
+                }
+            </style>
+        </ui:define>
+        <ui:define name="content">
+            <f:metadata>
+                <f:viewParam name="trackingId"
+                             value="#{changeDestination.trackingId}" />
+                <f:viewAction action="#{changeDestination.load}" />
+            </f:metadata>
+            <div class="row">
+                <div class="large-6 columns">
+                    <div id="container" class="panel">
+                        <h:form>
+                            <table>
+                                <span class="label">Change destination for cargo
+                                    #{changeDestination.cargo.trackingId}</span>
+                                <tbody>
+                                    <tr>
+                                        <td>Current destination</td>
+                                        <td>#{changeDestination.cargo.finalDestination}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>New destination</td>
+                                        <td><h:selectOneMenu
+                                                value="#{changeDestination.destinationUnlocode}"
+                                                p:autofocus="true">
+                                                <f:selectItems value="#{changeDestination.locations}"
+                                                               var="location" itemLabel="#{location.name}"
+                                                               itemValue="#{location.unLocode}" />
+                                            </h:selectOneMenu></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td></td>
+                                        <td><h:commandButton value="Change destination"
+                                                             action="#{changeDestination.changeDestination()}" /></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

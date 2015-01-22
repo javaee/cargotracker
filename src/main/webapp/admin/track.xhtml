@@ -1,0 +1,62 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/WEB-INF/templates/common/admin.xhtml">
+        <ui:define name="title">Track Cargo</ui:define>
+        <ui:define name="content">
+            <div class="row">
+                <div class="large-12 columns">
+                    <div id="container" class="panel">
+                        <h:form id="trackingForm">
+                            <table>
+                                <tr>
+                                    <td>Enter your tracking ID:</td>
+                                    <td><h:inputText id="trackingIdInput"
+                                                     value="#{track.trackingId}"
+                                                     p:autofocus="true"
+                                                     p:placeholder="XYZ789"
+                                                     p:required="true"
+                                                     p:pattern=".*\S+.*"
+                                                     p:title="Valid tracking ID" /></td>
+                                    <td><h:commandButton value="Track!"
+                                                         action="#{track.onTrackById()}" /></td>
+                                </tr>
+                            </table>
+                        </h:form>
+                        <h:messages class="error" />
+                        <h:panelGroup rendered="#{not empty track.cargo}">
+                            <div id="result">
+                                <h2>Cargo #{track.cargo.trackingId} is now:
+                                    #{track.cargo.statusText}</h2>
+                                <p>Estimated time of arrival in
+                                    #{track.cargo.destination}: #{track.cargo.eta}</p>
+                                <p>#{track.cargo.nextExpectedActivity}</p>
+                                <h:panelGroup rendered="#{track.cargo.misdirected}">
+                                    <p class="notify">
+                                        <img src="#{request.contextPath}/images/error.png" alt="" />Cargo is
+                                        misdirected
+                                    </p>
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{not empty track.cargo.events}">
+                                    <h3>Handling History</h3>
+                                    <ul style="list-style-type: none;">
+                                        <ui:repeat value="#{track.cargo.events}" var="leg">
+                                            <li>
+                                                <p>
+                                                    <img style="vertical-align: top;"
+                                                         src='#{request.contextPath}/images/#{leg.expected ? "tick" : "cross"}.png'
+                                                         alt="" /> #{leg.description}
+                                                </p>
+                                            </li>
+                                        </ui:repeat>
+                                    </ul>
+                                </h:panelGroup>
+                            </div>
+                        </h:panelGroup>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

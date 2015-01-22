@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title><ui:insert name="title">Title</ui:insert></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <h:outputStylesheet name="foundation/css/foundation.css" />
+        <h:outputStylesheet name="cargotracker.css" />
+        <h:outputStylesheet name="calendar.css" />
+    </h:head>
+    <h:body>
+        <!-- Cargo Tracker Navigation Menu -->
+        <div class="row">
+            <div class="large-12 columns">
+                <!-- Navigation -->
+                <nav class="top-bar">
+                    <ul class="title-area">
+                        <!-- Title Area -->
+                        <li class="name">
+                            <h1>
+                                <a href="#">
+                                    <a href="/cargo-tracker"><span class="alert label">Cargo Tracker <label class="alert label show-for-medium-up">
+                                                - Powered by Java EE 7</label></span></a>
+                                </a>
+                            </h1>
+                        </li>
+                        <li class="toggle-topbar menu-icon">
+                            <a href="#"><span>menu</span></a></li>
+                    </ul>
+                    <section class="top-bar-section">
+                        <ul class="left">
+                            <li><a href="#{request.contextPath}/public/track.xhtml">Track</a></li>
+                            <li><a href="#{request.contextPath}/public/about.xhtml">About</a></li>
+                        </ul>
+                    </section>
+                </nav>
+            </div>
+        </div>
+        <br></br>
+        <!-- End of Cargo Tracker Navigation Menu -->
+
+        <!-- Body Content -->
+        <div id="body" class="cargo_content">
+            <ui:insert name="content">Default Content</ui:insert>
+        </div>
+
+        <!-- Always have Foundation load JQuery and not Zepto -->
+        <h:outputScript name="foundation/js/vendor/jquery.js" />
+        <h:outputScript name="foundation/js/foundation.min.js" />
+        <!-- Load Foundation and make it ready for usage -->
+        <script>
+            $(document).foundation();
+        </script>
+    </h:body>
+</html>

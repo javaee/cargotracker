@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/WEB-INF/templates/common/admin.xhtml">
+        <ui:define name="title">Cargo Dashboard</ui:define>
+        <!-- TODO: Are the widgets really needed? -->
+        <ui:define name="content">
+            <div class="row">
+                <ui:decorate template="/WEB-INF/templates/widgets/12ColWidget.xhtml">
+                    <ui:define name="widgetTitle">Cargos (Routed)</ui:define>
+                    <ui:define name="widgetContent">
+                        <ui:include src="/admin/listRouted.xhtml"/>
+                    </ui:define>
+                </ui:decorate>
+            </div>
+            <div class="row">
+                <ui:decorate template="/WEB-INF/templates/widgets/6ColWidget.xhtml">
+                    <ui:define name="widgetTitle">Cargos (Claimed)</ui:define>
+                    <ui:define name="widgetContent">
+                        <ui:include src="/admin/listClaimed.xhtml"/>
+                    </ui:define>
+                </ui:decorate>
+
+                <ui:decorate template="/WEB-INF/templates/widgets/6ColWidget.xhtml">
+                    <ui:define name="widgetTitle">Cargos (Not Routed)</ui:define>
+                    <ui:define name="widgetContent">
+                        <ui:include src="/admin/listNotRouted.xhtml"/>
+                    </ui:define>
+                </ui:decorate>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
