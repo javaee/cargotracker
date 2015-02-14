@@ -13,7 +13,7 @@ developed by DDD pioneer Eric Evans' company Domain Language and the Swedish
 software consulting company Citerus. The cargo example actually comes from 
 Eric Evans' seminal book on DDD. The original application is written in Spring,
 Hibernate and Jetty whereas the application is build entirely on Java EE 7 and
-GlassFish 4.
+GlassFish 4.  It also supports WildFly 8.
 
 The application is an end-to-end system for keeping track of shipping cargo. It 
 has several interfaces described in the following sections.
@@ -32,6 +32,7 @@ The simplest steps are the following (no IDE required):
 * Get the project source code: https://java.net/projects/cargotracker/downloads
 * As long as you have Maven set up, navigate to the project source root and 
   type: mvn package cargo:run
+* To run with WildFly 8x, type: mvn -Pwildfly package cargo:run
 * Go to http://localhost:8080/cargo-tracker
 
 To set up in NetBeans, follow these steps:

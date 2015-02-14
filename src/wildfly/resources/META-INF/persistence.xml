@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-  <persistence-unit name="CargoTrackerUnit" transaction-type="JTA">
-    	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <!-- jta-data-source>java:global/jdbc/CargoTrackerDatabase</jta-data-source -->
-		<jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
-    <properties>
-    <!-- 
-			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
-			<property name="hibernate.show_sql" value="false" />
-			<property name="hibernate.format_sql" value="true" />
-			<property name="hibernate.transaction.flush_before_completion" value="true" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
- -->
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
-      <property name="eclipselink.logging.level" value="FINEST"/>
-    </properties>
-  </persistence-unit>
+	<!-- wildfly persistence.xml -->
+	<persistence-unit name="CargoTrackerUnit" transaction-type="JTA">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<jta-data-source>java:/datasources/CargoTrackerDatabase</jta-data-source>
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+		<properties>
+			<property name="javax.persistence.schema-generation.database.action" value="create" />
+			<property name="eclipselink.logging.level" value="FINEST" />
+			<property name="eclipselink.deploy-on-startup" value="true" />
+		</properties>
+	</persistence-unit>
 </persistence>

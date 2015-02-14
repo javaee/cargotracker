@@ -9,7 +9,7 @@
     </context-param>
     
 	<!-- WildFly web.xml -->
-    <!-- DEO added for wildfly resteasy -->
+    <!-- added for wildfly resteasy -->
 	<context-param>
       <param-name>resteasy.scan</param-name>
       <param-value>true</param-value>
