@@ -1,4 +1,5 @@
 var xhr;
+var validationMessage;
 
 function createRequest() {
     xhr = new XMLHttpRequest();
@@ -8,7 +9,13 @@ function logIncident() {
 
     createRequest();
     var form = document.forms[0];
-
+    
+    // validate the form
+    if (!validateIncident(form)) {
+    	alert(validationMessage);
+    	return;
+    }
+    
     //Construct the JSON data
     var data = {};
     for (var i = 0, ii = form.length; i < ii; ++i) {
@@ -25,6 +32,23 @@ function logIncident() {
     xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
     xhr.send(JSON.stringify(data));
     xhr.onreadystatechange = update;
+}
+
+function validateIncident(form) {
+	var valid = true;
+	validationMessage = "";
+	
+	if (form.eventType.value == "LOAD" || form.eventType.value == "UNLOAD") {
+		if (!form.voyageNumber.value) {
+			valid = false;
+			validationMessage += "Voyage required.";
+		}
+	}
+	else {
+		form.voyageNumber.value = null;
+	}
+	
+	return valid;
 }
 
 function update() {
