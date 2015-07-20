@@ -3,7 +3,11 @@
          xmlns = "http://xmlns.jcp.org/xml/ns/javaee"
          xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation = "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd">
+    <!-- These are some of the few cases where XML descriptors for component
+    meta-data still continue to make sense. -->
     <enterprise-beans>
+        <!-- URL configuration in XML while the rest of the component metadata
+        is in annoations -->
         <session>
             <ejb-name>ExternalRoutingService</ejb-name>
             <env-entry>
@@ -12,6 +16,8 @@
                 <env-entry-value>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</env-entry-value>
             </env-entry>
         </session>
+        <!-- The same annotation based MDB is being rewired via XML multiple
+        times to listen to different queues -->
         <message-driven>
             <ejb-name>MisdirectedCargoConsumer</ejb-name>
             <ejb-class>net.java.cargotracker.infrastructure.messaging.jms.SimpleLoggingConsumer</ejb-class>
