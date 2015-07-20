@@ -23,8 +23,9 @@
     </session-config>
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
-        <welcome-file>index.html</welcome-file>
     </welcome-file-list>
+    <!-- Application level resource dependencies like JMS queues and data
+    sources are still good candidates for XML -->
     <data-source>
         <name>java:global/jdbc/CargoTrackerDatabase</name>
         <class-name>org.apache.derby.jdbc.EmbeddedDriver</class-name>
