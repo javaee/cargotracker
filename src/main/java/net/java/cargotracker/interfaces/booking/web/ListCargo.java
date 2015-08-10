@@ -28,6 +28,8 @@ public class ListCargo {
     private List<CargoRoute> routedCargos;
     private List<CargoRoute> claimedCargos;
     private List<CargoRoute> notRoutedCargos;
+    private List<CargoRoute> routedUnclaimedCargos;
+
     @Inject
     private BookingServiceFacade bookingServiceFacade;
 
@@ -52,6 +54,17 @@ public class ListCargo {
         return routedCargos;
     }
 
+    public List<CargoRoute> getRoutedUnclaimedCargos() {
+        routedUnclaimedCargos = new ArrayList<>();
+        for (CargoRoute route : cargos) {
+            if (route.isRouted() && !route.isClaimed()) {
+                routedUnclaimedCargos.add(route);
+            }
+        }
+
+        return routedUnclaimedCargos;
+    }
+
     public List<CargoRoute> getClaimedCargos() {
         claimedCargos = new ArrayList<>();
 
@@ -67,7 +80,7 @@ public class ListCargo {
     public List<CargoRoute> getNotRoutedCargos() {
         notRoutedCargos = new ArrayList<>();
 
-        for (CargoRoute route : notRoutedCargos) {
+        for (CargoRoute route : cargos) {
             if (!route.isRouted()) {
                 notRoutedCargos.add(route);
             }

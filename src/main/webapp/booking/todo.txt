@@ -1,0 +1,2 @@
+TODO: this Face Flow should ideally be moved to /admin (http://stackoverflow.com/questions/25140475/how-to-place-a-jsf-flow-in-a-subfolder)
+TODO: correctly leave the flow

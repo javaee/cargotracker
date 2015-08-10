@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import net.java.cargotracker.domain.model.cargo.Cargo;
@@ -75,6 +76,8 @@ public class HandlingEvent implements Serializable {
     @JoinColumn(name = "cargo_id")
     @NotNull
     private Cargo cargo;
+    @Transient
+    private String summary;
 
     /**
      * Handling event type. Either requires or prohibits a carrier movement
@@ -212,6 +215,19 @@ public class HandlingEvent implements Serializable {
 
     public Cargo getCargo() {
         return this.cargo;
+    }
+
+    public String getSummary() {
+        StringBuilder builder = new StringBuilder(location.getName()).append("\n")
+                .append(completionTime).append("\n")
+                .append("Type: ").append(type).append("\n")
+                .append("Reg.: ").append(registrationTime)
+                .append("\n");
+
+        if (voyage != null) {
+            builder.append("Voyage: ").append(voyage.getVoyageNumber());
+        }
+        return builder.toString();
     }
 
     @Override

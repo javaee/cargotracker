@@ -3,6 +3,7 @@ package net.java.cargotracker.interfaces.booking.facade.dto;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import net.java.cargotracker.application.util.DateUtil;
 
 /**
  * DTO for a leg in an itinerary.
@@ -49,8 +50,16 @@ public class Leg implements Serializable {
         return fromUnLocode;
     }
 
+    public String getFromName() {
+        return fromName;
+    }
+
     public String getTo() {
         return toUnLocode + " (" + toName + ")";
+    }
+
+    public String getToName() {
+        return toName;
     }
 
     public String getToUnLocode() {
@@ -61,8 +70,24 @@ public class Leg implements Serializable {
         return loadTime;
     }
 
+    public String getLoadTimeDate() {
+        return DateUtil.getDateFromDateTime(loadTime);
+    }
+
+    public String getLoadTimeTime() {
+        return DateUtil.getTimeFromDateTime(loadTime);
+    }
+
     public String getUnloadTime() {
         return unloadTime;
+    }
+
+    public String getUnloadTimeTime() {
+        return DateUtil.getTimeFromDateTime(unloadTime);
+    }
+
+    public String getUnloadTimeDate() {
+        return DateUtil.getDateFromDateTime(unloadTime);
     }
 
     @Override

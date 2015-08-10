@@ -2,68 +2,63 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title><ui:insert name="title">Title</ui:insert></title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <h:outputStylesheet name="foundation/css/foundation.css" />
-        <h:outputStylesheet name="cargotracker.css" />
-        <h:outputStylesheet name="calendar.css" /> 
+        <!--h:outputStylesheet name="foundation/css/foundation.css" /-->
+        <!--h:outputStylesheet name="cargotracker.css" /-->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"></link>
+        <h:outputStylesheet name="calendar.css" />
+        <h:outputStylesheet name="dd.css"/>
+        <ui:debug hotkey="x" />        
     </h:head>
+    
     <h:body>
             
-          <!-- Cargo Tracker Navigation Menu -->
-          <div class="row">
-            <div class="large-12 columns">
-              <!-- Navigation -->
-                <nav class="top-bar">
-                  <ul class="title-area">
-                    <!-- Title Area -->
-                    <li class="name">
-                      <h1>
-                        <a href="#">
-                            <a href="/cargo-tracker">
-                                <span class="alert label">Cargo Tracker 
-                                    <label class="alert label show-for-medium-up">
-                                    - Powered by Java EE 7</label>
-                                </span>
-                            </a>
-                        </a>
-                      </h1>
-                    </li>
-                    <li class="toggle-topbar menu-icon">
-                        <a href="#"><span>menu</span></a></li>
-                  </ul>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" class="decoration">
+                <div class="ui-grid ui-grid-responsive">
+                    <div class="ui-grid-row shadowme">
+                        <div class="ui-grid-col-1"></div>
+                        <div class="ui-grid-col-7" >
+                            <a href="#{request.contextPath}" style="text-decoration: none;color:white;">
+                                &#160;&#160;<img src="../images/CTlogobadge128.png" style="padding-top: 10px;" height="30"/>&#160;&#160;&#160;
+                                <h:outputText styleClass="titleText" value="Cargo Tracker - Powered by Java EE 7" />
+                            </a></div>
+                        <div class="ui-grid-col-1"></div>
+                        <div class="ui-grid-col-5" style="padding-top: 26px;">
+                            <h:form>
+                                <h:commandLink value="Dashboard" action="/admin/dashboard.xhtml" styleClass="headerLink"/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <h:commandLink value="Book" action="booking" styleClass="headerLink" />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <h:commandLink value="Track" action="/admin/track.xhtml" styleClass="headerLink" />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <h:outputLink value="#{request.contextPath}/admin/map.html" styleClass="headerLink">Map</h:outputLink>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <h:commandLink value="About" action="/admin/about.xhtml" styleClass="headerLink" />
+                            </h:form>
 
-                  <section class="top-bar-section">
-                    <ul class="left">
-                      <li><a href="dashboard.xhtml">Home</a></li>
-                      <li><a href="registration.xhtml">Booking</a></li>
-                      <li><a href="track.xhtml">Tracking</a></li>
-                      <li><a href="about.xhtml">About</a></li>
-                    </ul>
-  
-                  </section>
-                </nav>
-              </div>
-            </div>
-          <br></br>
-            <!-- End of Cargo Tracker Navigation Menu -->
-    
-            <!-- Body Content -->
-            <div id="body" class="cargo_content">
-                <ui:insert name="content">Default Content</ui:insert>
-            </div>
-         
+                        </div>
+                    </div>
+                </div>
+            </p:layoutUnit>
 
-        
-        <!-- Always have Foundation load JQuery and not Zepto -->
-        <h:outputScript name="foundation/js/vendor/jquery.js" />
-        <h:outputScript name="foundation/js/foundation.min.js" />
-        <!-- Load Foundation and make it ready for usage -->
-        <script>
-            $(document).foundation();
-        </script>
+            <p:layoutUnit position="center" >
+                <div id="body">
+                    <ui:insert name="content">Default Content</ui:insert>
+                </div>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="south" size="50" class="clearCargoBkg" style="margin: 0 auto;">
+                <center> <!-- TODO: change center CCS -->
+                    <p:separator/>
+                    <p:outputLabel style="center"><a href="http://www.oracle.com/us/legal/terms/index.html" class="footerText">Copyright &#169; Oracle 2015 and its affiliates.</a></p:outputLabel> 
+                </center>
+            </p:layoutUnit>
+        </p:layout>
     </h:body>
 </html>

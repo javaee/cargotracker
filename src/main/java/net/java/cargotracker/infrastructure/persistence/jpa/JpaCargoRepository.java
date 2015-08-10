@@ -64,4 +64,23 @@ public class JpaCargoRepository implements CargoRepository, Serializable {
         return entityManager.createNamedQuery("Cargo.findAll", Cargo.class)
                 .getResultList();
     }
+
+    @Override
+    public List<TrackingId> getAllTrackingId() {
+        //Query query = entityManager.createQuery("SELECT id FROM Cargo id");
+        //List<TrackingId> listId = query.getResultList();
+
+        List<TrackingId> listId; // = query.getResultList();
+        try {
+            listId = entityManager.createNamedQuery("Cargo.getAllTrackingId",
+                    TrackingId.class)
+                    .getResultList();
+        } catch (NoResultException e) {
+            logger.log(Level.FINE, "Unable to get all tracking ID", e);
+            listId = null;
+        }
+
+        return listId;
+    }
+
 }

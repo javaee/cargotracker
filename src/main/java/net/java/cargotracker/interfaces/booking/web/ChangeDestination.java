@@ -1,6 +1,7 @@
 package net.java.cargotracker.interfaces.booking.web;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -8,6 +9,7 @@ import javax.inject.Named;
 import net.java.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import net.java.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 import net.java.cargotracker.interfaces.booking.facade.dto.Location;
+import org.primefaces.context.RequestContext;
 
 /**
  * Handles changing the cargo destination. Operates against a dedicated service
@@ -50,6 +52,18 @@ public class ChangeDestination implements Serializable {
         return locations;
     }
 
+    public List<Location> getPotentialDestinations() {
+        // Potential destination = All Locations - Origin - Current Destination
+        List<Location> destinationsToRemove = new ArrayList<Location>();
+        for (Location loc : locations) {
+            if (loc.getName().equalsIgnoreCase(cargo.getOrigin()) || loc.getName().equalsIgnoreCase(cargo.getFinalDestination())) {
+                destinationsToRemove.add(loc);
+            }
+        }
+        locations.removeAll(destinationsToRemove);
+        return locations;
+    }
+
     public String getDestinationUnlocode() {
         return destinationUnlocode;
     }
@@ -59,13 +73,12 @@ public class ChangeDestination implements Serializable {
     }
 
     public void load() {
-        locations = bookingServiceFacade.listShippingLocations();        
+        locations = bookingServiceFacade.listShippingLocations();
         cargo = bookingServiceFacade.loadCargoForRouting(trackingId);
     }
 
-    public String changeDestination() {
+    public void changeDestination() {
         bookingServiceFacade.changeDestination(trackingId, destinationUnlocode);
-
-        return "show.xhtml?faces-redirect=true&trackingId=" + trackingId;
+        RequestContext.getCurrentInstance().closeDialog("DONE");
     }
 }

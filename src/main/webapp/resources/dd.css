@@ -1,0 +1,105 @@
+.ui-widget, .ui-widget .ui-widget {
+    font-size: 100% !important;
+}
+
+/* work around to fix selectonemenu bug in Chrome & Safari */
+.ui-selectonemenu-label {
+    width:90% !important;
+}
+
+/* plain (i.e. no strip) for the modal background */
+.ui-widget-overlay {
+    background-image: none;
+}
+
+.registrationPanelGrid {
+    border: none;
+    padding: 0.1em;
+    margin-bottom: 2px;
+}
+
+.buttonStyle {
+    padding: 0.1em;
+}
+
+.alignTop {
+    vertical-align: top;
+}
+
+
+.large {
+    vertical-align: top;
+}
+
+.listing {
+    font-size:0.9em;
+    text-align: center;
+}
+
+
+.ui-layout, .ui-layout-doc, .ui-layout-unit, .ui-layout-wrap, .ui-layout-bd, .ui-layout-hd {
+    border: none;
+    background-color: white;
+    background: none;
+}
+
+.ui-layout-unit-content {
+    background: white;
+    border: none;
+    background: none;
+    
+}
+
+.decoration .ui-layout-unit-content {
+    height: 48px !important; /* woraround header heigh bug in Chrome & Safari */
+    color: white;
+    font-weight: 100;
+    border-radius:  4px;
+    background-color: rgb(19,80,108);
+    background-image: -webkit-linear-gradient(bottom, rgb(43,50,64), rgb(80,80,140));
+    background-image:    -moz-linear-gradient(bottom, rgb(43,50,64), rgb(80,80,140));
+    background-image:      -o-linear-gradient(bottom, rgb(43,50,64), rgb(80,80,140));
+    background-image:         linear-gradient(to top, rgb(43,50,64), rgb(80,80,140));
+}
+
+.decorationPublic .ui-layout-unit-content {
+    height: 48px !important; /* woraround header heigh bug in Chrome & Safari */
+    color: white;
+    font-weight: 100;
+    border-radius:  6px;
+    background-color: rgb(19,80,108);
+    background-image: -webkit-linear-gradient(bottom, rgb(70,130,120), rgb(84,148,136));
+    background-image:    -moz-linear-gradient(bottom, rgb(70,130,120), rgb(84,148,136));
+    background-image:      -o-linear-gradient(bottom, rgb(70,130,120), rgb(84,148,136));
+    background-image:         linear-gradient(to top, rgb(70,130,120), rgb(84,148,136));
+}
+
+
+.shadowme {
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+
+
+.ui-datatable-odd {
+    background: none repeat scroll 0 0 #F2F5F9;
+}
+
+.ui-dashboard-column {
+    padding-bottom: 6px;
+}
+
+.titleText {
+    font-size: 22px;
+}
+
+.footerText {
+    color: #b5b5b5 !important; 
+    font-size:.75em; 
+    text-decoration: none;
+}    
+
+.headerLink {
+    text-decoration: none;
+    color: white !important;
+}
+

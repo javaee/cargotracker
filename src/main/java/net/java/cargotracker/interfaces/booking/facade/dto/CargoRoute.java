@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import net.java.cargotracker.application.util.DateUtil;
+import net.java.cargotracker.application.util.LocationUtil;
 
 /**
  * DTO for registering and routing a cargo.
@@ -47,9 +49,25 @@ public class CargoRoute implements Serializable {
     public String getOrigin() {
         return origin;
     }
+    
+    public String getOriginName() {
+        return LocationUtil.getLocationName(origin);
+    }
+
+    public String getOriginCode() {
+        return LocationUtil.getLocationCode(origin);
+    }
 
     public String getFinalDestination() {
         return finalDestination;
+    }
+    
+    public String getFinalDestinationName() {
+        return LocationUtil.getLocationName(finalDestination);
+    }
+    
+    public String getFinalDestinationCode() {
+        return LocationUtil.getLocationCode(finalDestination);
     }
 
     public void addLeg(
@@ -78,6 +96,14 @@ public class CargoRoute implements Serializable {
     public String getArrivalDeadline() {
         return arrivalDeadline;
     }
+    
+    public String getArrivalDeadlineDate() {
+        return DateUtil.getDateFromDateTime(arrivalDeadline); 
+    }
+
+    public String getArrivalDeadlineTime() {
+        return DateUtil.getTimeFromDateTime(arrivalDeadline);
+    }
 
     public boolean isClaimed() {
         return claimed;
@@ -85,6 +111,14 @@ public class CargoRoute implements Serializable {
 
     public String getLastKnownLocation() {
         return this.lastKnownLocation;
+    }
+    
+    public String getLastKnownLocationName() {
+        return LocationUtil.getLocationName(lastKnownLocation);
+    }
+    
+    public String getLastKnownLocationCode() {
+        return LocationUtil.getLocationCode(lastKnownLocation);
     }
 
     public String getTransportStatus() {

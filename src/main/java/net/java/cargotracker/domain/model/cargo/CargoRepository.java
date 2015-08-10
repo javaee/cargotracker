@@ -11,4 +11,7 @@ public interface CargoRepository {
     void store(Cargo cargo);
 
     TrackingId nextTrackingId();
+    
+    List<TrackingId> getAllTrackingId();
+    
 }

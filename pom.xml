@@ -27,6 +27,19 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        
+        <!-- PrimeFaces dependencies -->
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>all-themes</artifactId>
+            <version>1.0.10</version>
+        </dependency>
+        
         <!-- GlassFish specific dependencies -->
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
