@@ -111,44 +111,44 @@ public class SampleDataGenerator {
 
         RouteSpecification routeSpecification1 = new RouteSpecification(
                 SampleLocations.HONGKONG, SampleLocations.HELSINKI,
-                DateUtil.toDate("2014-03-15"));
+                DateUtil.toDate("2015-03-15"));
         Cargo abc123 = new Cargo(trackingId1, routeSpecification1);
 
         Itinerary itinerary1 = new Itinerary(Arrays.asList(
                 new Leg(SampleVoyages.HONGKONG_TO_NEW_YORK,
                         SampleLocations.HONGKONG, SampleLocations.NEWYORK,
-                        DateUtil.toDate("2014-03-02"),
-                        DateUtil.toDate("2014-03-05")),
+                        DateUtil.toDate("2015-03-02"),
+                        DateUtil.toDate("2015-03-05")),
                 new Leg(SampleVoyages.NEW_YORK_TO_DALLAS,
                         SampleLocations.NEWYORK,
                         SampleLocations.DALLAS,
-                        DateUtil.toDate("2014-03-06"),
-                        DateUtil.toDate("2014-03-08")),
+                        DateUtil.toDate("2015-03-06"),
+                        DateUtil.toDate("2015-03-08")),
                 new Leg(SampleVoyages.DALLAS_TO_HELSINKI,
                         SampleLocations.DALLAS,
                         SampleLocations.HELSINKI,
-                        DateUtil.toDate("2014-03-09"),
-                        DateUtil.toDate("2014-03-12"))));
+                        DateUtil.toDate("2015-03-09"),
+                        DateUtil.toDate("2015-03-12"))));
         abc123.assignToRoute(itinerary1);
 
         entityManager.persist(abc123);
 
         try {
             HandlingEvent event1 = handlingEventFactory.createHandlingEvent(
-                    new Date(), DateUtil.toDate("2014-03-01"), trackingId1, null,
+                    new Date(), DateUtil.toDate("2015-03-01"), trackingId1, null,
                     SampleLocations.HONGKONG.getUnLocode(),
                     HandlingEvent.Type.RECEIVE);
             entityManager.persist(event1);
 
             HandlingEvent event2 = handlingEventFactory.createHandlingEvent(
-                    new Date(), DateUtil.toDate("2014-03-02"), trackingId1,
+                    new Date(), DateUtil.toDate("2015-03-02"), trackingId1,
                     SampleVoyages.HONGKONG_TO_NEW_YORK.getVoyageNumber(),
                     SampleLocations.HONGKONG.getUnLocode(),
                     HandlingEvent.Type.LOAD);
             entityManager.persist(event2);
 
             HandlingEvent event3 = handlingEventFactory.createHandlingEvent(
-                    new Date(), DateUtil.toDate("2014-03-05"), trackingId1,
+                    new Date(), DateUtil.toDate("2015-03-05"), trackingId1,
                     SampleVoyages.HONGKONG_TO_NEW_YORK.getVoyageNumber(),
                     SampleLocations.NEWYORK.getUnLocode(),
                     HandlingEvent.Type.UNLOAD);
@@ -168,49 +168,49 @@ public class SampleDataGenerator {
 
         RouteSpecification routeSpecification2 = new RouteSpecification(
                 SampleLocations.HANGZOU, SampleLocations.STOCKHOLM,
-                DateUtil.toDate("2014-03-18"));
+                DateUtil.toDate("2015-03-18"));
         Cargo jkl567 = new Cargo(trackingId2, routeSpecification2);
 
         Itinerary itinerary2 = new Itinerary(Arrays.asList(
                 new Leg(SampleVoyages.HONGKONG_TO_NEW_YORK,
                         SampleLocations.HANGZOU, SampleLocations.NEWYORK,
-                        DateUtil.toDate("2014-03-03"),
-                        DateUtil.toDate("2014-03-05")),
+                        DateUtil.toDate("2015-03-03"),
+                        DateUtil.toDate("2015-03-05")),
                 new Leg(SampleVoyages.NEW_YORK_TO_DALLAS,
                         SampleLocations.NEWYORK, SampleLocations.DALLAS,
-                        DateUtil.toDate("2014-03-06"),
-                        DateUtil.toDate("2014-03-08")),
+                        DateUtil.toDate("2015-03-06"),
+                        DateUtil.toDate("2015-03-08")),
                 new Leg(SampleVoyages.DALLAS_TO_HELSINKI, SampleLocations.DALLAS,
                         SampleLocations.STOCKHOLM,
-                        DateUtil.toDate("2014-03-09"),
-                        DateUtil.toDate("2014-03-11"))));
+                        DateUtil.toDate("2015-03-09"),
+                        DateUtil.toDate("2015-03-11"))));
         jkl567.assignToRoute(itinerary2);
 
         entityManager.persist(jkl567);
 
         try {
             HandlingEvent event1 = handlingEventFactory.createHandlingEvent(
-                    new Date(), DateUtil.toDate("2014-03-01"), trackingId2, null,
+                    new Date(), DateUtil.toDate("2015-03-01"), trackingId2, null,
                     SampleLocations.HANGZOU.getUnLocode(),
                     HandlingEvent.Type.RECEIVE);
             entityManager.persist(event1);
 
             HandlingEvent event2 = handlingEventFactory.createHandlingEvent(
-                    new Date(), DateUtil.toDate("2014-03-03"), trackingId2,
+                    new Date(), DateUtil.toDate("2015-03-03"), trackingId2,
                     SampleVoyages.HONGKONG_TO_NEW_YORK.getVoyageNumber(),
                     SampleLocations.HANGZOU.getUnLocode(),
                     HandlingEvent.Type.LOAD);
             entityManager.persist(event2);
 
             HandlingEvent event3 = handlingEventFactory.createHandlingEvent(
-                    new Date(), DateUtil.toDate("2014-03-05"), trackingId2,
+                    new Date(), DateUtil.toDate("2015-03-05"), trackingId2,
                     SampleVoyages.HONGKONG_TO_NEW_YORK.getVoyageNumber(),
                     SampleLocations.NEWYORK.getUnLocode(),
                     HandlingEvent.Type.UNLOAD);
             entityManager.persist(event3);
 
             HandlingEvent event4 = handlingEventFactory.createHandlingEvent(
-                    new Date(), DateUtil.toDate("2014-03-06"), trackingId2,
+                    new Date(), DateUtil.toDate("2015-03-06"), trackingId2,
                     SampleVoyages.HONGKONG_TO_NEW_YORK.getVoyageNumber(),
                     SampleLocations.NEWYORK.getUnLocode(),
                     HandlingEvent.Type.LOAD);
@@ -230,7 +230,7 @@ public class SampleDataGenerator {
 
         RouteSpecification routeSpecification3 = new RouteSpecification(
                 SampleLocations.HONGKONG, SampleLocations.MELBOURNE,
-                DateUtil.toDate("2014-11-18"));
+                DateUtil.toDate("2015-11-18"));
 
         Cargo def789 = new Cargo(trackingId3, routeSpecification3);
         entityManager.persist(def789);
@@ -238,7 +238,7 @@ public class SampleDataGenerator {
         // Cargo definition MNO456. This one will be claimed properly.
         TrackingId trackingId4 = new TrackingId("MNO456");
         RouteSpecification routeSpecification4 = new RouteSpecification(
-                SampleLocations.NEWYORK, SampleLocations.DALLAS, DateUtil.toDate("2014-3-27"));
+                SampleLocations.NEWYORK, SampleLocations.DALLAS, DateUtil.toDate("2015-3-27"));
 
         Cargo mno456 = new Cargo(trackingId4, routeSpecification4);
 
@@ -247,8 +247,8 @@ public class SampleDataGenerator {
                         new Leg(SampleVoyages.NEW_YORK_TO_DALLAS,
                                 SampleLocations.NEWYORK,
                                 SampleLocations.DALLAS,
-                                DateUtil.toDate("2013-10-24"),
-                                DateUtil.toDate("2013-10-25"))
+                                DateUtil.toDate("2015-10-24"),
+                                DateUtil.toDate("2015-10-25"))
                 ));
 
         mno456.assignToRoute(itinerary4);
@@ -256,33 +256,33 @@ public class SampleDataGenerator {
 
         try {
             HandlingEvent event1 = handlingEventFactory.createHandlingEvent(
-                    new Date(), DateUtil.toDate("2013-10-18"), trackingId4,
+                    new Date(), DateUtil.toDate("2015-10-18"), trackingId4,
                     null, SampleLocations.NEWYORK.getUnLocode(), HandlingEvent.Type.RECEIVE);
 
             entityManager.persist(event1);
 
             HandlingEvent event2 = handlingEventFactory.createHandlingEvent(
-                    new Date(), DateUtil.toDate("2013-10-24"), trackingId4,
+                    new Date(), DateUtil.toDate("2015-10-24"), trackingId4,
                     SampleVoyages.NEW_YORK_TO_DALLAS.getVoyageNumber(),
                     SampleLocations.NEWYORK.getUnLocode(), HandlingEvent.Type.LOAD);
 
             entityManager.persist(event2);
 
             HandlingEvent event3 = handlingEventFactory.createHandlingEvent(
-                    new Date(), DateUtil.toDate("2013-10-25"), trackingId4,
+                    new Date(), DateUtil.toDate("2015-10-25"), trackingId4,
                     SampleVoyages.NEW_YORK_TO_DALLAS.getVoyageNumber(),
                     SampleLocations.DALLAS.getUnLocode(), HandlingEvent.Type.UNLOAD);
 
             entityManager.persist(event3);
 
             HandlingEvent event4 = handlingEventFactory.createHandlingEvent(
-                    new Date(), DateUtil.toDate("2013-10-26"), trackingId4,
+                    new Date(), DateUtil.toDate("2015-10-26"), trackingId4,
                     null, SampleLocations.DALLAS.getUnLocode(), HandlingEvent.Type.CUSTOMS);
 
             entityManager.persist(event4);
 
             HandlingEvent event5 = handlingEventFactory.createHandlingEvent(
-                    new Date(), DateUtil.toDate("2013-10-27"), trackingId4,
+                    new Date(), DateUtil.toDate("2015-10-27"), trackingId4,
                     null, SampleLocations.DALLAS.getUnLocode(), HandlingEvent.Type.CLAIM);
 
             entityManager.persist(event5);
