@@ -147,7 +147,10 @@
         </script>
         <script type="text/javascript">
             $(function () {
-                var socket = new WebSocket("ws://localhost:8080/cargo-tracker/tracking");
+                var applicationPath = window.location.pathname.split('/')[1];
+                var socketUri = "ws://" + document.location.host + "/" + applicationPath + "/tracking";
+                var socket = new WebSocket(socketUri);
+                
                 socket.onmessage = function (event) {
                     location.reload(true);
                 };
