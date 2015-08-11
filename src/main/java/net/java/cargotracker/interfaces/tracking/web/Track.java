@@ -72,8 +72,6 @@ public class Track implements Serializable {
 
     public MapModel getMarkersModel() {
         
-        System.out.println("XXXXXXX getMarkersModel " + trackingId);
-        
         String origin = getCode(cargo.getOrigin());
         String dest = getCode(cargo.getDestination());
 
