@@ -44,7 +44,6 @@ public class EventBackingBean implements Serializable {
     //private String trackingId;
     private VoyageNumber voyageNumber;
     private Date completionDate;
-    private UnLocode unLocode;
     private String eventType;
     private String location;
 
@@ -148,20 +147,12 @@ public class EventBackingBean implements Serializable {
         this.completionDate = completionTime;
     }
 
-    public UnLocode getUnLocode() { // todo : should the proposed ports be related to the tracking ID only?
-        return unLocode;
-    }
-
     public void setLocation(String location) {
         this.location = location;
     }
 
     public String getLocation() {
         return location;
-    }
-
-    public void setUnLocode(UnLocode unLocode) {
-        this.unLocode = unLocode;
     }
 
     public String handleEventSubmission() {
@@ -171,6 +162,7 @@ public class EventBackingBean implements Serializable {
         //UnLocode unLocode = new UnLocode(unLocode);
         TrackingId trackingId = new TrackingId(trackId);
         Date registrationTime = new Date();
+        UnLocode unLocode = new UnLocode(this.location);
         
         // todo : check how event reg works
         HandlingEventRegistrationAttempt attempt
