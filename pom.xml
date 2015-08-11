@@ -19,6 +19,14 @@
         <webapp.databaseTempDir>/tmp</webapp.databaseTempDir>
     </properties>
 
+    <!-- We need to use the PrimeFaces repository -->
+    <repositories>
+        <repository>
+            <id>primefaces</id>
+            <url>http://repository.primefaces.org</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <!-- Java EE API -->
         <dependency>
@@ -27,19 +35,7 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-        
-        <!-- PrimeFaces dependencies -->
-        <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>5.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.primefaces.themes</groupId>
-            <artifactId>all-themes</artifactId>
-            <version>1.0.10</version>
-        </dependency>
-        
+
         <!-- GlassFish specific dependencies -->
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
@@ -53,6 +49,7 @@
             <version>2.0</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- The third-party dependencies this application has -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -60,6 +57,19 @@
             <version>3.4</version>
             <scope>compile</scope>
         </dependency>
+
+        <!-- PrimeFaces dependencies -->
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>all-themes</artifactId>
+            <version>1.0.10</version>
+        </dependency>
+
         <!-- Test dependendencies -->
         <dependency>
             <groupId>junit</groupId>
@@ -86,7 +96,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    
+
     <build>
         <finalName>cargo-tracker</finalName>
         <plugins>
