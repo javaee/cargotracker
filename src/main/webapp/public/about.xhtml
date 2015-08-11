@@ -1,13 +1,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <ui:composition template="/WEB-INF/templates/common/public.xhtml">
-        <ui:define name="title">Cargo Administration</ui:define>
+        <ui:define name="title">CT | About</ui:define>
         <ui:define name="content">
-            <div class="row">
-                <div class="large-12 columns">
-                    <div id="container" class="panel">
-                        <h3>Tracking Your Cargo</h3>
-                        <h5 class="subheader">
+
+            <div class="ui-grid ui-grid-responsive">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-3" id="leftCol"></div>
+                    <div class="ui-grid-col-6" id="mainCol">
+                        <br/><br/>
+                        <div id="container" class="panel">
+                            <center>
+                                <a href="#{request.contextPath}"><img src="../images/CTlogobadge128.png" style="padding-top: 10px;" height="96"/></a>                                
+                            </center>
+
+                            <h3>Tracking Your Cargo</h3>
                             <p>The public tracking interface
                                 allows you to track your cargo and receive
                                 information such as current status, estimated
@@ -21,10 +28,16 @@
                                 modifications to your cargo such as a change in
                                 destination, a correction, etc or if your cargo 
                                 is misdirected, delayed or held at customs.</p>
-                        </h5>
+                            <br/>
+                            <p>Visit <a href="https://cargotracker.java.net/">https://cargotracker.java.net/</a> for more information.</p>
+
+                            <hr/>
+                            <a href="track.xhtml"><i class="fa fa-arrow-left fa-lg" style="color: #999999;"></i></a>
+
+                        </div>
                     </div>
-                </div>
-            </div>
+                    <div class="ui-grid-col-3" id="rightCol"></div>
+                </div></div>
         </ui:define>
     </ui:composition>
 </html>

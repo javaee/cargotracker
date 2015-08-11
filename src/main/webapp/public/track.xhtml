@@ -1,67 +1,75 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/WEB-INF/templates/common/public.xhtml">
-        <ui:define name="title">Track Cargo</ui:define>
+        <ui:define name="title">CT | Track</ui:define>
         <ui:define name="content">
-            <div class="row">
-                <div class="large-12 columns">
-                    <div id="container" class="panel">
+            <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+
+            <div class="ui-grid ui-grid-responsive">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2" id="leftCol"></div>
+                    <div class="ui-grid-col-8" id="mainCol">
+
+                        <br/>
                         <h:form id="trackingForm">
-                            <table>
-                                <tr>
-                                    <td>Enter your tracking ID:</td>
-                                    <td><h:inputText id="trackingIdInput"
-                                                     value="#{track.trackingId}"
-                                                     p:autofocus="true"
-                                                     p:placeholder="XYZ789"
-                                                     p:required="true"
-                                                     p:pattern=".*\S+.*"
-                                                     p:title="Valid tracking ID" /></td>
-                                    <td><h:commandButton value="Track!"
-                                                         action="#{track.onTrackById()}" /></td>
-                                </tr>
-                            </table>
+                            <p:outputLabel value="Tracking ID  " />
+                            <p:autoComplete id="trackIdInput" value="#{track.trackingId}" required="true" forceSelection="true" completeMethod="#{track.completeTracking}" />
+                            <p:commandButton value="Track!" actionListener="#{track.onTrackById}" ajax="false"/>
                         </h:form>
-                        <h:messages class="error" />
-                        <h:panelGroup rendered="#{empty track.cargo}">
-                            <p>
-                                <em>Hint: try tracking 'ABC123' or 'JKL567'.</em>
-                            </p>
-                        </h:panelGroup>
+                        <br/>
+
                         <h:panelGroup rendered="#{not empty track.cargo}">
                             <div id="result">
-                                <h2>Cargo #{track.cargo.trackingId} is now:
-                                    #{track.cargo.statusText}</h2>
-                                <p>Estimated time of arrival in
-                                    #{track.cargo.destination}: #{track.cargo.eta}</p>
-                                <p>#{track.cargo.nextExpectedActivity}</p>
+                                <p>Cargo <strong>#{track.cargo.trackingId}</strong> is currently <strong>#{track.cargo.statusText}</strong></p>
+                                <p>Estimated time of arrival in <strong>#{track.cargo.destination}</strong>: #{track.cargo.eta}</p>
+                                <f:facet name="nextActivity" rendered="#{track.cargo.nextExpectedActivity}"><p>.#{track.cargo.nextExpectedActivity}.</p></f:facet>
+
                                 <h:panelGroup rendered="#{track.cargo.misdirected}">
-                                    <p class="notify">
-                                        <img src="#{request.contextPath}/images/error.png" alt="" />Cargo is
-                                        misdirected
-                                    </p>
+                                    <p><i class="fa fa-exclamation-triangle" style="color: #9b2332"></i> Cargo is misdirected.</p>
                                 </h:panelGroup>
+
                                 <h:panelGroup rendered="#{not empty track.cargo.events}">
-                                    <h3>Handling History</h3>
-                                    <ul style="list-style-type: none;">
-                                        <ui:repeat value="#{track.cargo.events}" var="leg">
-                                            <li>
-                                                <p>
-                                                    <img style="vertical-align: top;"
-                                                         src='#{request.contextPath}/images/#{leg.expected ? "tick" : "cross"}.png'
-                                                         alt="" /> #{leg.description}
-                                                </p>
-                                            </li>
-                                        </ui:repeat>
-                                    </ul>
+                                    <strong>Handling History</strong><br/>
+
+                                    <ui:repeat value="#{track.cargo.events}" var="leg">
+                                        <ui:fragment rendered="#{leg.expected}">
+                                            &#160;&#160;<i class="fa fa-check" style="color: green"/>&#160;#{leg.description}<br/>
+                                        </ui:fragment>
+                                        <ui:fragment rendered="#{!leg.expected}">
+                                            &#160;&#160;<i class="fa fa-flag" style="color: #9b2332"/>&#160;#{leg.description}<br/>
+                                        </ui:fragment>     
+                                    </ui:repeat>
                                 </h:panelGroup>
                             </div>
                         </h:panelGroup>
                     </div>
+
+                    <div class="ui-grid-col-2" id="rightCol" style="background-color: white;background:0;"></div>
                 </div>
+
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2" id="leftCol2"></div>
+                    <div class="ui-grid-col-8" id="mainCol2">
+                        <br/>
+                        <h:panelGroup rendered="#{not empty track.destinationCoordinates}">
+                            <p:gmap center="#{track.destinationCoordinates}" fitBounds="true" zoom="2" model="#{track.markersModel}" type="PLAN"  style="width:620px;height:360px;">
+                                <!-- p:ajax event="pointSelect" listener="#{track.onPointSelect}"/ --> 
+                            </p:gmap>
+                        </h:panelGroup>
+                        <p:separator />
+                        <a href="#{request.contextPath}"><i class="fa fa-arrow-left fa-lg" style="color: #999999;"></i></a>
+                    </div>
+
+                    <div class="ui-grid-col-1" id="rightCol2"></div>
+
+                </div>
+
             </div>
+
         </ui:define>
     </ui:composition>
 </html>
