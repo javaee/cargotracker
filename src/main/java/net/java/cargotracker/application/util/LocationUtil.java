@@ -16,7 +16,7 @@ public class LocationUtil {
     }
 
     public static String getLocationCode(String location) {
-        return location.substring(location.indexOf("(") + 1, location.indexOf(")") - 1);
+        return location.substring(location.indexOf("(") + 1, location.indexOf(")") );
     }
 
     public static List<String> getLocationsCode() {
