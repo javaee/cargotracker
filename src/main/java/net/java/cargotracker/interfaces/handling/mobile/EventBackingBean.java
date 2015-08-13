@@ -45,8 +45,6 @@ public class EventBackingBean implements Serializable {
     private Date completionDate;
     private String eventType;
     private String location;
-
-    //private CargoTrackingViewAdapter cargo;
     private String trackId;
     private List<SelectItem> trackIds;
     private List<SelectItem> locations;
@@ -71,14 +69,14 @@ public class EventBackingBean implements Serializable {
         locations = new ArrayList<>();
         List<String> allLocations = net.java.cargotracker.application.util.LocationUtil.getLocationsCode();
         for (String tempLoc : allLocations) {
-            locations.add(new SelectItem(tempLoc));
+            locations.add(new SelectItem(tempLoc, tempLoc));
         }
 
         voyages = new ArrayList<>(1);
         voyages.add(new SelectItem("Select cargo first", ""));
 
     }
-    
+
     public boolean isVoyageSelectable() {
         return voyageSelectable;
     }
@@ -87,13 +85,8 @@ public class EventBackingBean implements Serializable {
         return eventSubmitable;
     }
 
-    public String getEventType() {
-        return eventType;
-    }
-
     public void setTrackId(String trackId) {
         this.trackId = trackId;
-        
     }
 
     public void setVoyageNumber(String voyageNumber) {
@@ -120,14 +113,6 @@ public class EventBackingBean implements Serializable {
         return trackIds;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public List<SelectItem> getLocations() {
-        return locations;
-    }
-
     public String getVoyageNumber() {
         return voyageNumber;
     }
@@ -136,24 +121,38 @@ public class EventBackingBean implements Serializable {
         return voyages;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public List<SelectItem> getLocations() {
+        return locations;
+    }
+
+    public String getEventType() {
+        return eventType;
+    }
+
     public Date getCompletionTime() { // todo : can a completion be in the past?
         return completionDate;
     }
 
     public void restart() {
 
-        this.trackId = null;
-        this.voyageNumber = null;
+        trackId = null;
+        voyageNumber = null;
 
         eventType = null;
         location = null;
         completionDate = null;
         voyageSelectable = false;
-        eventSubmitable = false;
     }
 
     public String cancel() {
         return "";
+    }
+
+    public void updateListener() {
     }
 
     public void updateVoyage() {
@@ -175,7 +174,7 @@ public class EventBackingBean implements Serializable {
         //RequestContext.getCurrentInstance().update("eventForm:voyage");
     }
 
-    public void timeSet() {     
+    public void timeSet() {
         eventSubmitable = true;
     }
 
