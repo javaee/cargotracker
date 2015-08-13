@@ -26,6 +26,9 @@
     vertical-align: top;
 }
 
+.centered {
+    margin: 0px auto;
+}
 
 .large {
     vertical-align: top;

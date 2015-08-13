@@ -6,11 +6,11 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.faces.flow.FlowScoped;
 import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import net.java.cargotracker.application.ApplicationEvents;
 import net.java.cargotracker.domain.model.cargo.TrackingId;
 import net.java.cargotracker.domain.model.handling.HandlingEvent;
@@ -21,13 +21,14 @@ import net.java.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 import net.java.cargotracker.interfaces.booking.facade.dto.Leg;
 import net.java.cargotracker.interfaces.booking.web.CargoDetails;
 import net.java.cargotracker.interfaces.handling.HandlingEventRegistrationAttempt;
+import org.primefaces.context.RequestContext;
 
 /**
  *
  * @author davidd
  */
-@ManagedBean
-@ViewScoped
+@Named
+@FlowScoped("eventLogger")
 public class EventBackingBean implements Serializable {
 
     @Inject
@@ -41,8 +42,7 @@ public class EventBackingBean implements Serializable {
 
     private List<CargoRoute> cargos;
 
-    //private String trackingId;
-    private VoyageNumber voyageNumber;
+    private String voyageNumber;
     private Date completionDate;
     private String eventType;
     private String location;
@@ -54,6 +54,7 @@ public class EventBackingBean implements Serializable {
     private List<SelectItem> voyages;
 
     private boolean voyageSelectable = false;
+    private boolean eventSubmitable = false;
 
     @PostConstruct
     public void init() {
@@ -83,6 +84,10 @@ public class EventBackingBean implements Serializable {
         return voyageSelectable;
     }
 
+    public boolean isEventSubmitable() {
+        return eventSubmitable;
+    }
+
     public String getEventType() {
         return eventType;
     }
@@ -107,6 +112,22 @@ public class EventBackingBean implements Serializable {
         return voyages;
     }
 
+    public void restart() {
+
+        this.trackId = null;
+        this.voyageNumber = null;
+
+        eventType = null;
+        location = null;
+        completionDate = null;
+        voyageSelectable = false;
+        eventSubmitable = false;
+    }
+
+    public String cancel() {
+        return "";
+    }
+
     public void updateVoyage() {
 
         // Updating voyage list for the selectTrackid
@@ -121,7 +142,6 @@ public class EventBackingBean implements Serializable {
             somevoyages.add(new SelectItem(voyage, voyage));
         }
         voyageSelectable = true;
-
         //}
         this.voyages = somevoyages;
         //RequestContext.getCurrentInstance().update("eventForm:voyage");
@@ -131,16 +151,20 @@ public class EventBackingBean implements Serializable {
         this.trackId = trackId;
     }
 
-    public VoyageNumber getVoyageNumber() { // TODO : should the proposed voyage be related to the tracking ID only?
+    public String getVoyageNumber() {
         return voyageNumber;
     }
 
-    public void setVoyageNumber(VoyageNumber voyageNumber) {
+    public void setVoyageNumber(String voyageNumber) {
         this.voyageNumber = voyageNumber;
     }
 
     public Date getCompletionTime() { // todo : can a completion be in the past?
         return completionDate;
+    }
+
+    public void timeSet() {
+        eventSubmitable = true;
     }
 
     public void setCompletionTime(Date completionTime) {
@@ -158,29 +182,27 @@ public class EventBackingBean implements Serializable {
     public String handleEventSubmission() {
 
         //Date completionTime = new SimpleDateFormat(ISO_8601_FORMAT).parse(completionDate);                                
-        HandlingEvent.Type type = HandlingEvent.Type.valueOf(eventType);
-        //UnLocode unLocode = new UnLocode(unLocode);
         TrackingId trackingId = new TrackingId(trackId);
+        VoyageNumber selectedVoyage = new VoyageNumber(voyageNumber);
         Date registrationTime = new Date();
         UnLocode unLocode = new UnLocode(this.location);
-        
-        // todo : check how event reg works
+        HandlingEvent.Type type = HandlingEvent.Type.valueOf(eventType);
+
         HandlingEventRegistrationAttempt attempt
-                = new HandlingEventRegistrationAttempt(registrationTime, completionDate, trackingId, voyageNumber, type, unLocode);
+                = new HandlingEventRegistrationAttempt(registrationTime, completionDate, trackingId, selectedVoyage, type, unLocode);
         applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
 
-        // todo : provide some feedback
-        
         voyageNumber = null;
         completionDate = null;
         unLocode = null;
         eventType = null;
         location = null;
         trackId = null;
+        eventSubmitable = false;
 
-        FacesContext context = FacesContext.getCurrentInstance(); 
-        context.addMessage(null, new FacesMessage("Info",  "Event submitted") );
-        
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Event submitted", ""));
+
         return null;
     }
 
