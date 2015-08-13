@@ -16,33 +16,47 @@
                 <h:outputText value="Cargo Tracker is ... and this is some information that still need to be filled.&lt;br/&gt;For more, please visit..." escape = "false"/>
             </p:dialog>
 
-            <pm:header title="Event Logger" swatch="b">
+            <pm:header title="Event Logger" fixed="true" swatch="b">
+                <f:facet name="left">
+                    <p:button value="Quit" onclick="window.close()"/>
+                </f:facet>
                 <f:facet name="right">
-                    <h:form><p:commandButton  value="About" onclick="PF('dialogInfo').show();" /></h:form>
+                    <p:button value="Next" outcome="pm:secondScreen?transition=flip"/>
                 </f:facet>
             </pm:header>
 
+            <!--p:commandButton  value="About" onclick="PF('dialogInfo').show();" /-->
+
             <pm:content>
-                <center><h:graphicImage value="/images/CTlogobadge128.png" height="48"/></center>
                 <h:form id="firstForm">
-                    <h:panelGrid id="grid" columns="2" style="width: 100%" columnClasses="fifty-percent top-alignment, fifty-percent top-alignment">
+                    <h:panelGrid id="grid" columns="1" style="width: 100%" columnClasses="fifty-percent top-alignment, fifty-percent top-alignment">
                         <p:selectOneMenu id="trackingId" value="#{eventBackingBean.trackId}"
                                          required="true" requiredMessage="Tracking missing">
                             <p:ajax listener="#{eventBackingBean.updateVoyage}" update="panelVoyage"/>
+
+                            <p:ajax listener="#{eventBackingBean.countFields}" update="panelVoyage"/>
+
                             <f:selectItem itemLabel="Tracking" itemValue="#{eventBackingBean.trackId}" />
                             <f:selectItems value="#{eventBackingBean.trackIds}" /> 
                         </p:selectOneMenu>
                         <p:outputPanel id="panelVoyage">
                             <p:selectOneMenu id="voyage" value="#{eventBackingBean.voyageNumber}" disabled="#{not eventBackingBean.voyageSelectable}" 
                                              required="true" requiredMessage="Voyage missing">
+                                <p:ajax listener="#{eventBackingBean.countFields}" update="panelVoyage"/>
+
+
                                 <f:selectItem itemLabel="Voyage" itemValue="#{eventBackingBean.voyageNumber}" />
                                 <f:selectItems value="#{eventBackingBean.voyages}" />
                             </p:selectOneMenu>
                         </p:outputPanel>
                     </h:panelGrid>
 
-                    <h:panelGrid columns="2" style="width: 100%" columnClasses="fifty-percent top-alignment, fifty-percent top-alignment">
+                    <h:panelGrid columns="1" style="width: 100%" columnClasses="fifty-percent top-alignment, fifty-percent top-alignment">
                         <p:selectOneMenu id="portCode" value="#{eventBackingBean.location}" requiredMessage="Location missing" required="true">
+
+                            <p:ajax listener="#{eventBackingBean.countFields}" update="panelVoyage"/>
+
+
                             <f:selectItem itemLabel="Port" itemValue="#{eventBackingBean.location}" />
                             <f:selectItems value="#{eventBackingBean.locations}" />
                         </p:selectOneMenu>
@@ -54,26 +68,37 @@
                             <f:selectItem itemLabel="RECEIVE" itemValue="RECEIVE" />
                             <f:selectItem itemLabel="CLAIM" itemValue="CLAIM" />
                             <f:selectItem itemLabel="CUSTOMS" itemValue="CUSTOMS" />
+
+                            <p:ajax listener="#{eventBackingBean.countFields}" update="panelVoyage"/>
+
+
                         </p:selectOneMenu>
                     </h:panelGrid>
-                    <p:separator />
 
-                    <h:panelGrid columns="2" style="width: 100%" columnClasses="fifty-percent top-alignment, fifty-percent top-alignment">
-                        <p:commandButton value="Quit" onclick="window.close()" ajax="false"/>
-                        <h:commandButton id="next" value="Next" action="pm:secondScreen?transition=flip"/>
-                    </h:panelGrid>
-
+                    <center><h:graphicImage value="/images/CTlogobadge128.png" height="48"/></center>
                 </h:form>
             </pm:content>
-            <pm:footer swatch="b"/>
         </pm:page>
 
-        
-        <pm:page id="secondScreen">
-            <pm:header title="Event Logger" swatch="b"></pm:header>
 
+        <pm:page id="secondScreen">
+            
+            <pm:header id="header" title="Event Logger" fixed="true" swatch="b">
+                <f:facet name="left">
+                    <p:button value="Back" outcome="pm:firstScreen?transition=flip" />
+                </f:facet>
+                <f:facet id="right" name="right">
+                    <h:form>
+                        <p:commandButton  id="subBtn" value="Submit" actionListener="#{eventBackingBean.handleEventSubmission}" 
+                                         ajax="false" disabled="#{!eventBackingBean.eventSubmitable}"/>
+                    </h:form>
+                </f:facet>
+            </pm:header>
+            
+            <!--p:commandButton value="Submit" actionListener="#  {eventBackingBean.handleEventSubmission}" ajax="false" disabled="#  {!eventBackingBean.eventSubmitable}"/-->
+            <!-- p:commandButton value="Restart" actionListener="#  {eventBackingBean.restart}" action="pm:firstScreen?transition=flip" ajax="false"/-->        
             <pm:content>
-                <h:form id="secondForm">
+                <h:form>
                     <p:growl id="msgs" showDetail="false" />
 
                     <h:panelGrid columns="2" style="width: 100%" columnClasses="forty-percent, sixty-percent">
@@ -81,18 +106,13 @@
                         <p:calendar id="completionTime" value="#{eventBackingBean.completionTime}" 
                                     requiredMessage="A date is needed" required="false"
                                     pattern="MM/dd/yyyy" >
-                            <p:ajax event="dateSelect" listener="#{eventBackingBean.timeSet()}" update="panelButton" />
+                            <p:ajax event="dateSelect" listener="#{eventBackingBean.timeSet()}" update=":#{p:component('subBtn')}"/>
                         </p:calendar>
                     </h:panelGrid>
-
-                    <p:separator />
-
-                    <h:panelGrid columns="2" id="panelButton" style="width: 100%" columnClasses="fifty-percent, fifty-percent">                        
-                        <p:commandButton value="Restart" actionListener="#{eventBackingBean.restart}" action="pm:firstScreen?transition=flip" ajax="false"/>
-                        <p:commandButton value="Submit" actionListener="#{eventBackingBean.handleEventSubmission}" ajax="false" disabled="#{!eventBackingBean.eventSubmitable}"/>
-                    </h:panelGrid>
-
+                    
                 </h:form>
+                <p:separator />
+                <center><h:graphicImage value="/images/CTlogobadge128.png" height="48"/></center>
             </pm:content>
         </pm:page>
 

@@ -21,7 +21,6 @@ import net.java.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 import net.java.cargotracker.interfaces.booking.facade.dto.Leg;
 import net.java.cargotracker.interfaces.booking.web.CargoDetails;
 import net.java.cargotracker.interfaces.handling.HandlingEventRegistrationAttempt;
-import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -79,7 +78,7 @@ public class EventBackingBean implements Serializable {
         voyages.add(new SelectItem("Select cargo first", ""));
 
     }
-
+    
     public boolean isVoyageSelectable() {
         return voyageSelectable;
     }
@@ -92,24 +91,53 @@ public class EventBackingBean implements Serializable {
         return eventType;
     }
 
+    public void setTrackId(String trackId) {
+        this.trackId = trackId;
+        
+    }
+
+    public void setVoyageNumber(String voyageNumber) {
+        this.voyageNumber = voyageNumber;
+    }
+
     public void setEventType(String eventType) {
         this.eventType = eventType;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setCompletionTime(Date completionTime) {
+        this.completionDate = completionTime;
     }
 
     public String getTrackId() {
         return trackId;
     }
 
-    public List<SelectItem> getLocations() {
-        return locations;
-    }
-
     public List<SelectItem> getTrackIds() {
         return trackIds;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public List<SelectItem> getLocations() {
+        return locations;
+    }
+
+    public String getVoyageNumber() {
+        return voyageNumber;
+    }
+
     public List<SelectItem> getVoyages() {
         return voyages;
+    }
+
+    public Date getCompletionTime() { // todo : can a completion be in the past?
+        return completionDate;
     }
 
     public void restart() {
@@ -147,36 +175,8 @@ public class EventBackingBean implements Serializable {
         //RequestContext.getCurrentInstance().update("eventForm:voyage");
     }
 
-    public void setTrackId(String trackId) {
-        this.trackId = trackId;
-    }
-
-    public String getVoyageNumber() {
-        return voyageNumber;
-    }
-
-    public void setVoyageNumber(String voyageNumber) {
-        this.voyageNumber = voyageNumber;
-    }
-
-    public Date getCompletionTime() { // todo : can a completion be in the past?
-        return completionDate;
-    }
-
-    public void timeSet() {
+    public void timeSet() {     
         eventSubmitable = true;
-    }
-
-    public void setCompletionTime(Date completionTime) {
-        this.completionDate = completionTime;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getLocation() {
-        return location;
     }
 
     public String handleEventSubmission() {
