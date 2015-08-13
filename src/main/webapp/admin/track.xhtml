@@ -25,8 +25,8 @@
                             <div id="result">
                                 <p>Cargo <strong>#{track.cargo.trackingId}</strong> is currently <strong>#{track.cargo.statusText}</strong></p>
                                 <p>Estimated time of arrival in <strong>#{track.cargo.destination}</strong>: #{track.cargo.eta}</p>
-                                <f:facet name="nextActivity" rendered="#{track.cargo.nextExpectedActivity}"><p>.#{track.cargo.nextExpectedActivity}.</p></f:facet>
-
+                                <ui:fragment rendered="#{not empty track.cargo.nextExpectedActivity}"><p>#{track.cargo.nextExpectedActivity}</p></ui:fragment>
+                                
                                 <h:panelGroup rendered="#{track.cargo.misdirected}">
                                     <p><i class="fa fa-exclamation-triangle" style="color: #9b2332"></i> Cargo is misdirected.</p>
                                 </h:panelGroup>
