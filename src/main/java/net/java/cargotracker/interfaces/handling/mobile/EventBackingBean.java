@@ -54,9 +54,7 @@ public class EventBackingBean implements Serializable {
     private boolean voyageSelectable = false;
     private boolean eventSubmitable = false;
     private boolean inputsOk = false; // used to check if the filled are ok
-
     boolean loadEventCondition = false;
-    
 
     @PostConstruct
     public void init() {
@@ -169,14 +167,15 @@ public class EventBackingBean implements Serializable {
         // Voyage should only be set for LOAD & UNLOAD events. For other events, it should be null
         loadEventCondition = false;
         voyageSelectable = false;
-        
+
         if (eventType.contains("LOAD")) {
             // a voyage has been selected for LOAD/UNLOAD event, ok
-            if (voyageNumber != null) { loadEventCondition = true; }
+            if (voyageNumber != null) {
+                loadEventCondition = true;
+            }
             voyageSelectable = true;
             RequestContext.getCurrentInstance().update("firstForm:panelVoyage");
-        } 
-        else {
+        } else {
             this.voyageNumber = null;
             loadEventCondition = true;
             voyageSelectable = false;
@@ -187,14 +186,14 @@ public class EventBackingBean implements Serializable {
 
     public void checkConditions() {
         //If event = LOAD or UNLOAD -> Voyage should be null
-        if (trackId != null && eventType != null && location != null && (eventType != null && loadEventCondition )) {
+        if (trackId != null && eventType != null && location != null && (eventType != null && loadEventCondition)) {
             // All condition are Ok, Next screen button can be enable
             inputsOk = true;
             RequestContext.getCurrentInstance().update("firstForm:panelVoyage,:firstScreen:nextBtn");
-            
+
         } else {
             // All conditions are not OK
-            inputsOk = false;            
+            inputsOk = false;
         }
     }
 
@@ -224,15 +223,21 @@ public class EventBackingBean implements Serializable {
 
     public String handleEventSubmission() {
 
+        VoyageNumber selectedVoyage = null;
+        
         //Date completionTime = new SimpleDateFormat(ISO_8601_FORMAT).parse(completionDate);                                
-        TrackingId trackingId = new TrackingId(trackId);
-        VoyageNumber selectedVoyage = new VoyageNumber(voyageNumber);
         Date registrationTime = new Date();
+        TrackingId trackingId = new TrackingId(trackId);
         UnLocode unLocode = new UnLocode(this.location);
         HandlingEvent.Type type = HandlingEvent.Type.valueOf(eventType);
 
+        if (voyageNumber!= null) {  // Only Load & Unload could have a Voyage set
+            selectedVoyage = new VoyageNumber(voyageNumber);
+        }
+        
         HandlingEventRegistrationAttempt attempt
                 = new HandlingEventRegistrationAttempt(registrationTime, completionDate, trackingId, selectedVoyage, type, unLocode);
+        
         applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
 
         voyageNumber = null;
@@ -241,7 +246,7 @@ public class EventBackingBean implements Serializable {
         eventType = null;
         location = null;
         trackId = null;
-        eventSubmitable = false;
+        eventSubmitable = loadEventCondition = voyageSelectable = inputsOk = false; 
 
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Event submitted", ""));
