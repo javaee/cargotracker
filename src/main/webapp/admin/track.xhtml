@@ -23,9 +23,13 @@
 
                         <h:panelGroup rendered="#{not empty track.cargo}">
                             <div id="result">
-                                <p>Cargo <strong>#{track.cargo.trackingId}</strong> is currently <strong>#{track.cargo.statusText}</strong></p>
+                                <p>Cargo <strong>#{track.cargo.trackingId}</strong> is currently <strong>#{track.cargo.statusText}</strong>
+                                <ui:fragment rendered="#{not empty track.cargo.nextExpectedLocationName}"> and is expected next in <strong>#{track.cargo.nextExpectedLocationName}</strong>.</ui:fragment>
+                                </p>
+                                
                                 <p>Estimated time of arrival in <strong>#{track.cargo.destination}</strong>: #{track.cargo.eta}</p>
                                 <ui:fragment rendered="#{not empty track.cargo.nextExpectedActivity}"><p>#{track.cargo.nextExpectedActivity}</p></ui:fragment>
+                                
                                 
                                 <h:panelGroup rendered="#{track.cargo.misdirected}">
                                     <p><i class="fa fa-exclamation-triangle" style="color: #9b2332"></i> Cargo is misdirected.</p>

@@ -26,7 +26,7 @@
     </servlet-mapping>
     
     <session-config>
-        <session-timeout>2</session-timeout>
+        <session-timeout>12</session-timeout>
     </session-config>
     
     <welcome-file-list>

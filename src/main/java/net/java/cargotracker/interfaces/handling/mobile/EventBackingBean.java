@@ -21,6 +21,7 @@ import net.java.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 import net.java.cargotracker.interfaces.booking.facade.dto.Leg;
 import net.java.cargotracker.interfaces.booking.web.CargoDetails;
 import net.java.cargotracker.interfaces.handling.HandlingEventRegistrationAttempt;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -52,6 +53,10 @@ public class EventBackingBean implements Serializable {
 
     private boolean voyageSelectable = false;
     private boolean eventSubmitable = false;
+    private boolean inputsOk = false; // used to check if the filled are ok
+
+    boolean loadEventCondition = false;
+    
 
     @PostConstruct
     public void init() {
@@ -79,6 +84,10 @@ public class EventBackingBean implements Serializable {
 
     public boolean isVoyageSelectable() {
         return voyageSelectable;
+    }
+
+    public boolean isInputsOk() {
+        return inputsOk;
     }
 
     public boolean isEventSubmitable() {
@@ -141,11 +150,11 @@ public class EventBackingBean implements Serializable {
 
         trackId = null;
         voyageNumber = null;
-
         eventType = null;
         location = null;
         completionDate = null;
         voyageSelectable = false;
+        loadEventCondition = false;
     }
 
     public String cancel() {
@@ -153,6 +162,40 @@ public class EventBackingBean implements Serializable {
     }
 
     public void updateListener() {
+        checkConditions();
+    }
+
+    public void updateListenerEvent() {
+        // Voyage should only be set for LOAD & UNLOAD events. For other events, it should be null
+        loadEventCondition = false;
+        voyageSelectable = false;
+        
+        if (eventType.contains("LOAD")) {
+            // a voyage has been selected for LOAD/UNLOAD event, ok
+            if (voyageNumber != null) { loadEventCondition = true; }
+            voyageSelectable = true;
+            RequestContext.getCurrentInstance().update("firstForm:panelVoyage");
+        } 
+        else {
+            this.voyageNumber = null;
+            loadEventCondition = true;
+            voyageSelectable = false;
+        }
+        checkConditions();
+        //RequestContext.getCurrentInstance().update("firstForm:panelVoyage,:firstScreen:nextBtn");
+    }
+
+    public void checkConditions() {
+        //If event = LOAD or UNLOAD -> Voyage should be null
+        if (trackId != null && eventType != null && location != null && (eventType != null && loadEventCondition )) {
+            // All condition are Ok, Next screen button can be enable
+            inputsOk = true;
+            RequestContext.getCurrentInstance().update("firstForm:panelVoyage,:firstScreen:nextBtn");
+            
+        } else {
+            // All conditions are not OK
+            inputsOk = false;            
+        }
     }
 
     public void updateVoyage() {
@@ -168,10 +211,11 @@ public class EventBackingBean implements Serializable {
             String voyage = leg.getVoyageNumber();
             somevoyages.add(new SelectItem(voyage, voyage));
         }
-        voyageSelectable = true;
+        //voyageSelectable = true;
         //}
         this.voyages = somevoyages;
         //RequestContext.getCurrentInstance().update("eventForm:voyage");
+        checkConditions();
     }
 
     public void timeSet() {
