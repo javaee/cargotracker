@@ -9,6 +9,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
@@ -17,8 +18,10 @@ import net.java.cargotracker.domain.model.location.Location;
 import org.apache.commons.lang3.Validate;
 
 @Entity
-@NamedQuery(name = "Voyage.findByVoyageNumber",
-        query = "Select v from Voyage v where v.voyageNumber = :voyageNumber")
+@NamedQueries({
+@NamedQuery(name = "Voyage.findByVoyageNumber", query = "Select v from Voyage v where v.voyageNumber = :voyageNumber"),
+@NamedQuery(name = "Voyage.findAll", query = "Select v from Voyage v order by v.voyageNumber")})
+
 public class Voyage implements Serializable {
 
     private static final long serialVersionUID = 1L;

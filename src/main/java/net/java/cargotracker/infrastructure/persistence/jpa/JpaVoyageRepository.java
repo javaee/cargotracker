@@ -1,10 +1,12 @@
 package net.java.cargotracker.infrastructure.persistence.jpa;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import net.java.cargotracker.domain.model.location.Location;
 
 import net.java.cargotracker.domain.model.voyage.Voyage;
 import net.java.cargotracker.domain.model.voyage.VoyageNumber;
@@ -23,4 +25,12 @@ public class JpaVoyageRepository implements VoyageRepository, Serializable {
 				.createNamedQuery("Voyage.findByVoyageNumber", Voyage.class)
 				.setParameter("voyageNumber", voyageNumber).getSingleResult();
 	}
+
+	@Override
+	public List<Voyage> findAll() {
+		return entityManager.createNamedQuery("Voyage.findAll", Voyage.class)
+                        .getResultList();		
+	}
+        
+
 }

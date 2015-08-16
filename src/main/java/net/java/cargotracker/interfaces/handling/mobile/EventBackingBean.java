@@ -15,10 +15,11 @@ import net.java.cargotracker.application.ApplicationEvents;
 import net.java.cargotracker.domain.model.cargo.TrackingId;
 import net.java.cargotracker.domain.model.handling.HandlingEvent;
 import net.java.cargotracker.domain.model.location.UnLocode;
+import net.java.cargotracker.domain.model.voyage.Voyage;
 import net.java.cargotracker.domain.model.voyage.VoyageNumber;
+import net.java.cargotracker.domain.model.voyage.VoyageRepository;
 import net.java.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import net.java.cargotracker.interfaces.booking.facade.dto.CargoRoute;
-import net.java.cargotracker.interfaces.booking.facade.dto.Leg;
 import net.java.cargotracker.interfaces.booking.web.CargoDetails;
 import net.java.cargotracker.interfaces.handling.HandlingEventRegistrationAttempt;
 import org.primefaces.context.RequestContext;
@@ -39,6 +40,10 @@ public class EventBackingBean implements Serializable {
 
     @Inject
     private ApplicationEvents applicationEvents;
+    
+    @Inject
+    private VoyageRepository voyageRepository;
+
 
     private List<CargoRoute> cargos;
 
@@ -61,6 +66,7 @@ public class EventBackingBean implements Serializable {
 
         cargos = bookingServiceFacade.listAllCargos();
 
+        // fill the TrackingId dropdown list
         trackIds = new ArrayList<>();
         for (CargoRoute route : cargos) {
             if (route.isRouted() && !route.isClaimed()) { // we just need getRoutedUnclaimedCargos
@@ -68,16 +74,22 @@ public class EventBackingBean implements Serializable {
                 trackIds.add(new SelectItem(routedUnclaimedId, routedUnclaimedId));
             }
         }
-
+        
+        // fill the Port dropdown list
         locations = new ArrayList<>();
         List<String> allLocations = net.java.cargotracker.application.util.LocationUtil.getLocationsCode();
         for (String tempLoc : allLocations) {
             locations.add(new SelectItem(tempLoc, tempLoc));
         }
-
-        voyages = new ArrayList<>(1);
-        voyages.add(new SelectItem("Select cargo first", ""));
-
+        
+        // fill the Voyage dropdown list (only needed for LOAD & UNLOAD events)
+        List<Voyage> allVoyages = voyageRepository.findAll();
+        List<SelectItem> allVoyagesModel = new ArrayList<>(allVoyages.size());        
+        for (Voyage voyage : allVoyages) {
+            String voyageNumber = voyage.getVoyageNumber().getIdString();
+            allVoyagesModel.add(new SelectItem(voyageNumber, voyageNumber));
+        }        
+        this.voyages = allVoyagesModel;        
     }
 
     public boolean isVoyageSelectable() {
@@ -198,20 +210,6 @@ public class EventBackingBean implements Serializable {
     }
 
     public void updateVoyage() {
-
-        // Updating voyage list for the selectTrackid
-        cargoDetails.setTrackingId(trackId);
-        cargoDetails.load();
-        int nbrLegs = cargoDetails.getCargo().getLegs().size();
-
-        //if (nbrLegs >= 1) { // at this stage, we can't get a zero leg cargo
-        List<SelectItem> somevoyages = new ArrayList<>(nbrLegs);
-        for (Leg leg : cargoDetails.getCargo().getLegs()) {
-            String voyage = leg.getVoyageNumber();
-            somevoyages.add(new SelectItem(voyage, voyage));
-        }
-        //}
-        this.voyages = somevoyages;
         //RequestContext.getCurrentInstance().update("eventForm:voyage");
         checkConditions();
     }
