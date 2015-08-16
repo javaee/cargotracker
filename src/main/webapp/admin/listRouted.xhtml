@@ -26,7 +26,7 @@
 
         <p:column headerText="Last Known Location">
             <h:outputText value="#{cargo.lastKnownLocationName}" /><br/>            
-            <h:outputText value="#{cargo.lastKnownLocationCode}" style="color: #999999;font-size:.8em;" rendered="#{cargo.lastKnownLocationCode ne 'XXXX'}" />
+            <h:outputText value="#{cargo.lastKnownLocationCode}" style="color: #999999;font-size:.8em;" rendered="#{!cargo.lastKnownLocationCode.contains('XXXX')}" />
         </p:column>
 
         <p:column headerText="Status">

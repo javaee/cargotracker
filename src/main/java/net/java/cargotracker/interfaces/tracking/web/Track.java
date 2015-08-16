@@ -17,7 +17,6 @@ import net.java.cargotracker.domain.model.handling.HandlingEvent;
 import net.java.cargotracker.domain.model.handling.HandlingEventRepository;
 import org.primefaces.event.map.PointSelectEvent;
 import org.primefaces.model.map.DefaultMapModel;
-import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
 
@@ -47,6 +46,7 @@ public class Track implements Serializable {
     private String trackingId;
     private CargoTrackingViewAdapter cargo;
     private String destinationCoordinates;
+    private String lastKnowCoordinates;
     private MapModel markersModel;
 
     public String getTrackingId() {
@@ -74,15 +74,20 @@ public class Track implements Serializable {
         
         String origin = getCode(cargo.getOrigin());
         String dest = getCode(cargo.getDestination());
+        String lastKnowLoc = cargo.getLastKnowLocation().getUnLocode().getIdString();
 
         if (origin != null && !origin.isEmpty()) {
             markersModel.addOverlay(new Marker(getPortLatLng(origin), "Origin: " + cargo.getOrigin()));
-        }
-
+        } 
+        
         if (dest != null && !dest.isEmpty()) {
             markersModel.addOverlay(new Marker(getPortLatLng(dest), "Final destination: " + cargo.getDestination()));
         }
-
+        if (lastKnowLoc != null && !lastKnowLoc.isEmpty() && !lastKnowLoc.toUpperCase().contains("XXXX")) {
+                String lastKnownLocName = cargo.getLastKnowLocation().getName();
+                markersModel.addOverlay(new Marker(getPortLatLng(lastKnowLoc), "Last known location: " + lastKnownLocName)); 
+        } 
+                
         return markersModel;
     }
 
@@ -98,11 +103,15 @@ public class Track implements Serializable {
     public String getDestinationCoordinates() {
         return destinationCoordinates;
     }
+    
+    public String getLastKnowCoordinate() {
+        return lastKnowCoordinates;
+    }
 
     public void onTrackById() {
-        
+
         markersModel = new DefaultMapModel();
-        
+
         Cargo cargo = cargoRepository.find(new TrackingId(trackingId));
 
         if (cargo != null) {
@@ -111,11 +120,6 @@ public class Track implements Serializable {
                     .getDistinctEventsByCompletionTime();
             this.cargo = new CargoTrackingViewAdapter(cargo, handlingEvents);
             this.destinationCoordinates = net.java.cargotracker.application.util.LocationUtil.getPortCoordinates(cargo.getRouteSpecification().getDestination().getUnLocode().getIdString());
-            
-            for (HandlingEvent event : handlingEvents) {
-                markersModel.addOverlay(new Marker(getPortLatLng(event.getLocation().getUnLocode().getIdString()), event.getSummary()));
-                // add Marker for " + event.getLocation().getUnLocode().getIdString());
-            }
 
         } else {
             // TODO See if this can be injected.
@@ -127,8 +131,8 @@ public class Track implements Serializable {
             this.cargo = null;
         }
     }
-    
-        public void onPointSelect(PointSelectEvent event) {
+
+    public void onPointSelect(PointSelectEvent event) {
         // TODO: handle whe  Map clicked
         //LatLng latlng = event.getLatLng();
         //addMessage(new FacesMessage(FacesMessage.SEVERITY_INFO, "CLick", ""));

@@ -108,8 +108,8 @@ public class EventBackingBean implements Serializable {
         this.location = location;
     }
 
-    public void setCompletionTime(Date completionTime) {
-        this.completionDate = completionTime;
+    public void setCompletionDate(Date completionDate) {
+        this.completionDate = completionDate;
     }
 
     public String getTrackId() {
@@ -140,7 +140,7 @@ public class EventBackingBean implements Serializable {
         return eventType;
     }
 
-    public Date getCompletionTime() { // todo : can a completion be in the past?
+    public Date getCompletionDate() { // todo : can a completion be in the past?
         return completionDate;
     }
 
@@ -192,7 +192,7 @@ public class EventBackingBean implements Serializable {
             RequestContext.getCurrentInstance().update("firstForm:panelVoyage,:firstScreen:nextBtn");
 
         } else {
-            // All conditions are not OK
+            // All conditions are not OK!
             inputsOk = false;
         }
     }
@@ -210,7 +210,6 @@ public class EventBackingBean implements Serializable {
             String voyage = leg.getVoyageNumber();
             somevoyages.add(new SelectItem(voyage, voyage));
         }
-        //voyageSelectable = true;
         //}
         this.voyages = somevoyages;
         //RequestContext.getCurrentInstance().update("eventForm:voyage");

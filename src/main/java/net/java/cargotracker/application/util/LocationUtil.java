@@ -78,32 +78,32 @@ public class LocationUtil {
 
     public static String getCode(String city) {
 
-        switch (city) {
-            case "Chicago":
+        switch (city.toUpperCase()) {
+            case "CHICAGO":
                 return "USCHI";
-            case "Dallas":
+            case "DALLAS":
                 return "USDAL";
-            case "Guttenburg": // TODO: spelling ok? 
+            case "GUTTENBURG": // TODO: spelling ok? 
                 return "SEGOT";
-            case "Hamburg":
+            case "HAMBURG":
                 return "DEHAM";
-            case "Hangzhou":
+            case "HANGZHOU":
                 return "CNHGH";
-            case "Helsinki":
+            case "HELSINKI":
                 return "FIHEL";
-            case "Hong Kong":
+            case "HONG KONG":
                 return "CNHKG";
-            case "Melbourne":
+            case "MELBOURNE":
                 return "AUMEL";
-            case "New York":
+            case "NEW YORK":
                 return "USNYC";
-            case "Rotterdam":
+            case "ROTTERFDAM":
                 return "NLRTM";
-            case "Shangai":
+            case "SHANGHAI":
                 return "CNSHA";
-            case "Stockholm":
+            case "STOCKHOLM":
                 return "SESTO";
-            case "Tokyo":
+            case "TOKYO":
                 return "JNTKO";
             default:
                 return null;
