@@ -89,6 +89,16 @@ public class CargoTrackingViewAdapter {
         }
     }
 
+    public Location getLastKnowLocation() {
+     HandlingActivity activity = cargo.getDelivery().getNextExpectedActivity();
+
+        if ((activity == null) || (activity.isEmpty())) {
+            return null;
+        }
+        return activity.getLocation();
+    }
+    
+    
     public String getNextExpectedActivity() {
         HandlingActivity activity = cargo.getDelivery().getNextExpectedActivity();
 

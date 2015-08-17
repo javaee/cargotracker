@@ -4,11 +4,12 @@
     <head>
         <title>Cargo Live Map</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="/cargo-tracker/css/lib/jquery-jvectormap-1.2.2.css" type="text/css" media="screen"/>
+        <link rel="stylesheet" href="/cargo-tracker/resources/jquery-jvectormap-1.2.2.css" type="text/css" media="screen"/>
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"/>
         <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script src="/cargo-tracker/javascript/lib/jquery-jvectormap-1.2.2.min.js"></script>
-        <script src="/cargo-tracker/javascript/lib/jquery-jvectormap-world-mill-en.js"></script>
+        <script src="/cargo-tracker/resources/js/jquery-jvectormap-1.2.2.min.js"></script>
+        <script src="/cargo-tracker/resources/js/jquery-jvectormap-world-mill-en.js"></script>
+        
         <script type="text/javascript">
             var locationName = new Array();
 
@@ -85,11 +86,10 @@
         </script>
     </head>
     <body style="background-color: white">
-        <h2 style="font-weight: 500; text-align: center; padding-top: 4px; padding-bottom: 4px; text-shadow:4px 2px 4px rgba(179, 179, 179, 0.74);color: #575757;">Cargo Live Map</h2>
-        <div style="margin-left: 15px; margin-right: 15px; margin-bottom: 22px;
-             border:#555; -webkit-box-shadow: 4px 4px 10px 5px #949494; box-shadow: 4px 4px 10px 5px #949494;">
+
+        
             <div id="world-map" style="height: 600px;  border:#FFF; border-style: solid; border-width: 8px;"/>
-        </div>
+        
         <script type="text/javascript">
             $(function () {
                 $.getJSON('/cargo-tracker/rest/cargo', function (data) {
@@ -139,7 +139,12 @@
                                     'Last known location: ' + locationName[data[index].lastKnownLocation]);
                         },
                         onMarkerClick: function (event, index) {
-                            window.location = "show.xhtml?trackingId=" + data[index].trackingId;
+                            var applicationPath = window.location.pathname.split('/')[1];
+                            var trackingUri = "http://" + document.location.host + "/" + applicationPath + "/admin/show.xhtml?trackingId=" + data[index].trackingId;
+                            var winHeight = $(window).height();
+                            var winWidth = $(window).width();
+                            var winDimensions = "height=" + winHeight + ",width=" +winWidth;
+                            window.open(trackingUri, "winMap", winDimensions);
                         }
                     });
                 });
