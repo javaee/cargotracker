@@ -23,9 +23,7 @@
 
                         <h:panelGroup rendered="#{not empty track.cargo}">
                             <div id="result">
-                                <p>Cargo <strong>#{track.cargo.trackingId}</strong> is currently <strong>#{track.cargo.statusText}</strong>
-                                <ui:fragment rendered="#{not empty track.cargo.nextExpectedLocationName}"></ui:fragment>
-                                </p>
+                                <p>Cargo <strong>#{track.cargo.trackingId}</strong> is currently <strong>#{track.cargo.statusText}</strong></p>
                                 
                                 <p>Estimated time of arrival in <strong>#{track.cargo.destination}</strong>: #{track.cargo.eta}</p>
                                 <ui:fragment rendered="#{not empty track.cargo.nextExpectedActivity}"><p>#{track.cargo.nextExpectedActivity}</p></ui:fragment>
