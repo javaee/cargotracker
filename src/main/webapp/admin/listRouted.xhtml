@@ -5,7 +5,7 @@
      xmlns:p="http://primefaces.org/ui">
     
     <p:dataTable var="cargo" value="#{listCargo.routedUnclaimedCargos}" style="text-align: center;">
-        <p:column headerText="Id" width="100">            
+        <p:column headerText="Id" width="94">            
             <h:link value="#{cargo.trackingId}" id="trackingId"
                     outcome="show.xhtml?faces-redirect=true" style="text-decoration: none;" >
                 <f:param name="trackingId" value="#{cargo.trackingId}" />

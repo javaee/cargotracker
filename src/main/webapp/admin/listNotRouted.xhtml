@@ -5,7 +5,7 @@
     
     <p:dataTable var="cargoNotRouted" value="#{listCargo.notRoutedCargos}" style="text-align: center;" id="tableNotRouted">        
 
-        <p:column headerText="Id" width="100">
+        <p:column headerText="Id" width="94">
             <h:link id="trackingId" value="#{cargoNotRouted.trackingId}"
                     outcome="route.xhtml?faces-redirect=true" style="text-decoration: none;" >
                 <f:param name="trackingId" value="#{cargoNotRouted.trackingId}" />
