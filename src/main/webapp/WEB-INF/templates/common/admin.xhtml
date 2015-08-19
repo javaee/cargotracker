@@ -23,26 +23,26 @@
                 <div class="ui-grid ui-grid-responsive">
                     <div class="ui-grid-row shadowme">
                         <div class="ui-grid-col-1"></div>
-                        <div class="ui-grid-col-7" >
+                        <div class="ui-grid-col-5">
                             <a href="#{request.contextPath}" style="text-decoration: none;color:white;">
                                 &#160;&#160;<img src="../images/CTlogobadge128.png" style="padding-top: 10px;" height="30"/>&#160;&#160;&#160;
                                 <h:outputText styleClass="titleText" value="Cargo Tracker - Powered by Java EE 7" />
                             </a></div>
-                        <div class="ui-grid-col-1"></div>
-                        <div class="ui-grid-col-5" style="padding-top: 26px;">
+                        
+                        <div class="ui-grid-col-5 alignRight" style="padding-top: 26px;">
                             <h:form>
                                 <h:commandLink value="Dashboard" action="/admin/dashboard.xhtml" styleClass="headerLink"/>
-                                &nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;
                                 <h:commandLink value="Book" action="booking" styleClass="headerLink" />
-                                &nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;
                                 <h:commandLink value="Track" action="/admin/track.xhtml" styleClass="headerLink" />
-                                &nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;
                                 <h:commandLink value="Live" action="/admin/map.xhtml" styleClass="headerLink" target="_blank" />
-                                &nbsp;&nbsp;&nbsp;
-                                <h:commandLink value="About" action="/admin/about.xhtml" styleClass="headerLink" />&nbsp;
+                                &nbsp;&nbsp;
+                                <h:commandLink value="About" action="/admin/about.xhtml" styleClass="headerLink" />
                             </h:form>
-
                         </div>
+                        <div class="ui-grid-col-1"></div>
                     </div>
                 </div>
             </p:layoutUnit>
