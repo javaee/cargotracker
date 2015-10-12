@@ -148,7 +148,7 @@
                             <container>
                                 <containerId>glassfish4x</containerId>
                                 <zipUrlInstaller>
-                                    <url>http://dlc.sun.com.edgesuite.net/glassfish/4.0.1/promoted/latest-glassfish.zip</url>
+                                    <url>http://download.java.net/glassfish/4.1/release/glassfish-4.1.zip</url>
                                 </zipUrlInstaller>
                             </container>
                             <properties>
