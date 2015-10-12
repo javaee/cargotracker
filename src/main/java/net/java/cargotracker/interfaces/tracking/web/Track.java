@@ -74,8 +74,14 @@ public class Track implements Serializable {
         
         String origin = getCode(cargo.getOrigin());
         String dest = getCode(cargo.getDestination());
-        String lastKnowLoc = cargo.getLastKnowLocation().getUnLocode().getIdString();
-
+        String lastKnowLoc = "XXXX"; // "XXXX" = unknow
+        
+        try {
+            lastKnowLoc = cargo.getLastKnowLocation().getUnLocode().getIdString();
+        } catch (Exception e) {
+            // todo : check why lastloc is null
+        }        
+                
         if (origin != null && !origin.isEmpty()) {
             markersModel.addOverlay(new Marker(getPortLatLng(origin), "Origin: " + cargo.getOrigin()));
         } 
