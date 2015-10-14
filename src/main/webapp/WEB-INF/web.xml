@@ -8,33 +8,33 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
-    
+
+    <!-- XML is still typical for third party framework configuration -->
     <context-param>
-        <param-name>primefaces.THEME</param-name>  
+        <param-name>primefaces.THEME</param-name>
         <param-value>ui-lightness</param-value>
     </context-param>
-    
+
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    
+
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
-    
+
     <session-config>
         <session-timeout>12</session-timeout>
     </session-config>
-    
+
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
-    
-    <!-- todo: meaning full error mgt -->
+
     <error-page>
         <exception-type>javax.servlet.ServletException</exception-type>
         <location>/error.xhtml</location>
@@ -42,12 +42,12 @@
     <error-page>
         <exception-type>java.*</exception-type>
         <location>/error.xhtml</location>
-    </error-page>    
+    </error-page>
     <error-page>
         <error-code>404</error-code>
         <location>/error_404.xhtml</location>
     </error-page>
-    
+
     <!-- Application level resource dependencies like JMS queues and data
     sources are still good candidates for XML -->
     <!-- Defining these at the application server level instead of here

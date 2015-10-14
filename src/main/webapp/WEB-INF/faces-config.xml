@@ -3,17 +3,6 @@
               xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
-    <!--application>
-        <message-bundle>resources.application</message-bundle>
-        <locale-config>
-            <default-locale>en</default-locale>
-        </locale-config>
-        <resource-bundle>
-            <base-name>net.java.cargotracker.messages</base-name>
-            <var>messages</var>
-        </resource-bundle>
-    </application-->
-    
     <application>
         <action-listener>
             org.primefaces.application.DialogActionListener
