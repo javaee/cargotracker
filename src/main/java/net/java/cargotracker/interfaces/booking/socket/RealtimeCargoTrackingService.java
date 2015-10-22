@@ -34,6 +34,7 @@ public class RealtimeCargoTrackingService {
 
     @OnOpen
     public void onOpen(final Session session) {
+        session.setMaxIdleTimeout(5 * 60 * 1000); // 0 by default on GF
         sessions.add(session);
     }
 
