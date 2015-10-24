@@ -5,7 +5,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
     <persistence-unit name="CargoTrackerUnit">
-        <jta-data-source>java:global/jdbc/CargoTrackerDatabase</jta-data-source>
+        <jta-data-source>java:app/jdbc/CargoTrackerDatabase</jta-data-source>
         <properties>
             <!-- The default behavior is not generating a schema.
             Schema generation is good for demos, RAD, development, etc but likely

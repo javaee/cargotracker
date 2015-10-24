@@ -36,13 +36,20 @@
     </welcome-file-list>
 
     <error-page>
+         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+         <location>/expired.xhtml</location>
+    </error-page>
+    
+    <error-page>
         <exception-type>javax.servlet.ServletException</exception-type>
         <location>/error.xhtml</location>
     </error-page>
+
     <error-page>
-        <exception-type>java.*</exception-type>
+        <exception-type>java.lang.Throwable</exception-type>
         <location>/error.xhtml</location>
-    </error-page>
+    </error-page>    
+
     <error-page>
         <error-code>404</error-code>
         <location>/error_404.xhtml</location>
@@ -52,39 +59,72 @@
     sources are still good candidates for XML -->
     <!-- Defining these at the application server level instead of here
     Can be more operations friendly and help make deployment even faster. -->
-    <data-source>
+    <!--data-source>
         <name>java:app/jdbc/CargoTrackerDatabase</name>
         <class-name>org.apache.derby.jdbc.EmbeddedDriver</class-name>
         <url>jdbc:derby:${webapp.databaseTempDir}/cargo-tracker-database;create=true</url>
+    </data-source-->
+    
+        <data-source>
+        <name>java:app/jdbc/CargoTrackerDatabase</name>
+        <class-name>org.apache.derby.jdbc.ClientXADataSource</class-name>
+        <server-name>localhost</server-name>
+        <port-number>1527</port-number>
+        <database-name>CargoTrackerDatabase</database-name>
+        <user>app</user>
+        <password>app</password>
+        <property>
+            <name>create</name>
+            <value>true</value>
+        </property>
+        <property>
+            <name>weblogic.TestTableName</name>
+            <value>SQL SELECT 1 FROM SYS.SYSTABLES</value>
+        </property>        
     </data-source>
+    
+    <data-source>
+        <name>java:module/ExampleDS</name>
+        <class-name>org.apache.derby.jdbc.ClientXADataSource</class-name>
+        <server-name>localhost</server-name>
+        <port-number>1527</port-number>
+        <database-name>exampleDB</database-name>
+        <user>app</user>
+        <password>app</password>
+        <property>
+            <name>create</name>
+            <value>true</value>
+        </property>
+        <property>
+            <name>weblogic.TestTableName</name>
+            <value>SQL SELECT 1 FROM SYS.SYSTABLES</value>
+        </property>
+    </data-source>    
+    
+    
     <jms-destination>
         <name>java:app/jms/CargoHandledQueue</name>
         <interface-name>javax.jms.Queue</interface-name>
-        <resource-adapter>jmsra</resource-adapter>
         <destination-name>CargoHandledQueue</destination-name>
     </jms-destination>
     <jms-destination>
         <name>java:app/jms/MisdirectedCargoQueue</name>
         <interface-name>javax.jms.Queue</interface-name>
-        <resource-adapter>jmsra</resource-adapter>
         <destination-name>MisdirectedCargoQueue</destination-name>
     </jms-destination>
     <jms-destination>
         <name>java:app/jms/DeliveredCargoQueue</name>
         <interface-name>javax.jms.Queue</interface-name>
-        <resource-adapter>jmsra</resource-adapter>
         <destination-name>DeliveredCargoQueue</destination-name>
     </jms-destination>
     <jms-destination>
         <name>java:app/jms/RejectedRegistrationAttemptsQueue</name>
         <interface-name>javax.jms.Queue</interface-name>
-        <resource-adapter>jmsra</resource-adapter>
         <destination-name>RejectedRegistrationAttemptsQueue</destination-name>
     </jms-destination>
     <jms-destination>
         <name>java:app/jms/HandlingEventRegistrationAttemptQueue</name>
         <interface-name>javax.jms.Queue</interface-name>
-        <resource-adapter>jmsra</resource-adapter>
         <destination-name>HandlingEventRegistrationAttemptQueue</destination-name>
     </jms-destination>
 </web-app>

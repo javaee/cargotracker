@@ -4,7 +4,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <data-source>
-        <name>java:global/jdbc/CargoTrackerDatabase</name>
+        <name>java:app/jdbc/CargoTrackerDatabase</name>
         <class-name>org.apache.derby.jdbc.EmbeddedDriver</class-name>
         <url>jdbc:derby:/tmp/test/cargo-tracker-database;create=true</url>
     </data-source>

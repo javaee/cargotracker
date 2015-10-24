@@ -23,7 +23,7 @@ import net.java.cargotracker.domain.model.cargo.TrackingId;
     @ActivationConfigProperty(propertyName = "destinationType", 
         propertyValue = "javax.jms.Queue"),
     @ActivationConfigProperty(propertyName = "destinationLookup", 
-        propertyValue = "java:global/jms/CargoHandledQueue")
+        propertyValue = "java:app/jms/CargoHandledQueue")
 })
 public class CargoHandledConsumer implements MessageListener {
 

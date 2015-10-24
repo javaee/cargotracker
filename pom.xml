@@ -8,7 +8,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>cargo-tracker</name>
+    <name>cargo-tracker WLS</name>
     <url>http://cargotracker.java.net</url>
 
     <properties>
@@ -248,5 +248,167 @@
                 </plugins>
             </build>
         </profile>
+        
+
+        <!-- WebLogic Profile -->       
+        <profile>
+            <id>weblogic</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <arquillian.launch>weblogic</arquillian.launch>
+                <wls.user>weblogic</wls.user>
+                <wls.password>weblogic1</wls.password>
+                <wls.adminurl>t3://localhost:7001</wls.adminurl>
+                <wls.remote>false</wls.remote>
+                <wls.upload>false</wls.upload>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.oracle.weblogic</groupId>
+                    <artifactId>weblogic-server-pom</artifactId>
+                    <version>12.2.1-0-0</version>
+                    <scope>provided</scope>
+                    <type>pom</type>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-wls-remote-12.1.2</artifactId>
+                    <version>1.0.0.Alpha3</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>2.6</version>
+                        <configuration>
+                            <failOnMissingWebXml>false</failOnMissingWebXml>
+                            <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+                            <webXml>${basedir}/src/weblogic/webapp/WEB-INF/web.xml</webXml>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.15</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                            <systemProperties>
+                                <arquillian.launch>weblogic</arquillian.launch>
+                            </systemProperties>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.oracle.weblogic</groupId> 
+                        <artifactId>weblogic-maven-plugin</artifactId> 
+                        <version>12.2.1-0-0</version> 
+                        <configuration> 
+                            <user>${wls.user}</user> 
+                            <password>${wls.password}</password>
+                            <source>${project.build.directory}/${project.build.finalName}</source>
+                            <name>${project.build.finalName}</name>
+                            <adminurl>${wls.adminurl}</adminurl>
+                        </configuration> 
+                        <executions>
+                            <execution>
+                                <id>deploy</id>
+                                <phase>pre-integration-test</phase> 
+                                <goals> 
+                                    <goal>deploy</goal> 
+                                </goals>
+                            </execution> 
+                            <execution>
+                                <id>cleanup</id>
+                                <phase>clean</phase> 
+                                <goals> 
+                                    <goal>undeploy</goal> 
+                                </goals>
+                                <configuration>
+                                    <failOnError>false</failOnError>
+                                </configuration>
+                            </execution> 
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- WebLogic MultiTenant Profile -->       
+        <profile>
+            <id>weblogic-mt</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <arquillian.launch>weblogic</arquillian.launch>
+                <wls.tenant>uat</wls.tenant>
+                <wls.user>weblogic</wls.user>
+                <wls.password>weblogic1</wls.password>
+                <wls.adminurl>t3://localhost:7001</wls.adminurl>
+                <wls.remote>false</wls.remote>
+                <wls.upload>false</wls.upload>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.oracle.weblogic</groupId>
+                    <artifactId>weblogic-server-pom</artifactId>
+                    <version>12.2.1-0-0</version>
+                    <scope>provided</scope>
+                    <type>pom</type>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.oracle.weblogic</groupId> 
+                        <artifactId>weblogic-maven-plugin</artifactId> 
+                        <version>12.2.1-0-0</version> 
+                        <configuration> 
+                            <partition>${wls.tenant}</partition>
+                            <user>${wls.user}</user> 
+                            <password>${wls.password}</password>
+                            <source>${project.build.directory}/${project.build.finalName}.${project.packaging}</source>
+                            <!--
+                            <source>${project.build.directory}/${project.build.finalName}</source>                            
+                            -->
+                            <name>${project.build.finalName}</name>
+                            <adminurl>${wls.adminurl}</adminurl>
+                            <verbose>true</verbose>
+                            <remote>${wls.remote}</remote>
+                            <upload>${wls.upload}true</upload>
+                        </configuration> 
+                        <executions>
+                            <execution>
+                                <id>deploy</id>
+                                <phase>pre-integration-test</phase> 
+                                <goals> 
+                                    <goal>deploy</goal> 
+                                </goals>
+                            </execution> 
+                            <execution>
+                                <id>cleanup</id>
+                                <phase>clean</phase> 
+                                <goals> 
+                                    <goal>undeploy</goal> 
+                                </goals>
+                                <configuration>
+                                    <failOnError>false</failOnError>
+                                </configuration>
+                            </execution> 
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+
+        
+        
     </profiles>
 </project>
