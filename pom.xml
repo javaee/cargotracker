@@ -8,7 +8,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>cargo-tracker WLS</name>
+    <name>cargo-tracker</name>
     <url>http://cargotracker.java.net</url>
 
     <properties>
