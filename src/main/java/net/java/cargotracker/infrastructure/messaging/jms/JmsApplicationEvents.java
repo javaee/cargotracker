@@ -73,6 +73,7 @@ public class JmsApplicationEvents implements ApplicationEvents, Serializable {
                 .setPriority(LOW_PRIORITY)
                 .setDisableMessageID(true)
                 .setDisableMessageTimestamp(true)
+                .setTimeToLive(1000)
                 .send(handlingEventQueue, attempt);
     }
 }
