@@ -172,12 +172,6 @@
             </activation>
             <properties>
                 <webapp.graphTraversalUrl>http://localhost:7001/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
-                <arquillian.launch>weblogic</arquillian.launch>
-                <wls.user>weblogic</wls.user>
-                <wls.password>weblogic1</wls.password>
-                <wls.adminurl>t3://localhost:7001</wls.adminurl>
-                <wls.remote>false</wls.remote>
-                <wls.upload>false</wls.upload>
             </properties>
             <dependencies>
                 <dependency>
@@ -204,9 +198,6 @@
                         <version>2.15</version>
                         <configuration>
                             <skipTests>true</skipTests>
-                            <systemProperties>
-                                <arquillian.launch>weblogic</arquillian.launch>
-                            </systemProperties>
                         </configuration>
                     </plugin>
                 </plugins>
