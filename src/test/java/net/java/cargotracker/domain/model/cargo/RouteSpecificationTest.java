@@ -1,17 +1,12 @@
 package net.java.cargotracker.domain.model.cargo;
 
-import static org.junit.Assert.*;
-import net.java.cargotracker.domain.model.cargo.RouteSpecification;
-import net.java.cargotracker.domain.model.cargo.Itinerary;
-import net.java.cargotracker.domain.model.cargo.Leg;
-
 import java.util.Arrays;
-
 import net.java.cargotracker.application.util.DateUtil;
 import net.java.cargotracker.domain.model.location.SampleLocations;
 import net.java.cargotracker.domain.model.voyage.Voyage;
 import net.java.cargotracker.domain.model.voyage.VoyageNumber;
-
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class RouteSpecificationTest {
