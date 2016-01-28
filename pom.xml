@@ -37,7 +37,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- GlassFish specific dependencies -->
+        <!-- GlassFish specific dependencies, could go away in Java EE 8 -->
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet-core</artifactId>
@@ -84,16 +84,11 @@
             <version>1.1.8.Final</version>
             <scope>test</scope>
         </dependency>
+        <!-- Resolvers are needed in the Arquillian tests -->
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
             <version>2.1.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-glassfish-remote-3.1</artifactId>
-            <version>1.0.0.CR4</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -139,6 +134,14 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-glassfish-remote-3.1</artifactId>
+                    <version>1.0.0.CR4</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
             <build>
                 <plugins>
                     <plugin>
