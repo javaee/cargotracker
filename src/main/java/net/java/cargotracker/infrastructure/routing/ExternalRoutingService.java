@@ -35,7 +35,7 @@ import org.glassfish.jersey.moxy.json.MoxyJsonFeature;
 @Stateless
 public class ExternalRoutingService implements RoutingService {
 
-    @Resource(name = "graphTraversalUrl")
+    @Resource(lookup = "java:app/configuration/GraphTraversalUrl")
     private String graphTraversalUrl;
     // TODO Can I use injection?
     private final Client jaxrsClient = ClientBuilder.newClient();
