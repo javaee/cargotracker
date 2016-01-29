@@ -28,6 +28,19 @@
         </repository>
     </repositories>
 
+    <dependencyManagement>
+        <!-- Arquillian BOM used to reduce collision between testing dependecies. -->
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>1.1.10.Final</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <!-- Java EE API -->
         <dependency>
@@ -81,14 +94,12 @@
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
-            <version>1.1.10.Final</version>
             <scope>test</scope>
         </dependency>
         <!-- Resolvers are needed in the Arquillian tests -->
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
-            <version>2.2.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -121,7 +132,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.18.1</version>
                 <configuration>
-                    <skipTests>true</skipTests>
+                    <skipTests>false</skipTests>
                 </configuration>
             </plugin>
         </plugins>
