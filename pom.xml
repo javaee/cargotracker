@@ -132,7 +132,12 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.18.1</version>
                 <configuration>
-                    <skipTests>false</skipTests>
+                    <skipTests>true</skipTests>
+                    <systemPropertyVariables>
+                        <!-- This is needed to tell the unit tests which profile
+                        we are running. -->
+                        <profileId>${project.activeProfiles[0].id}</profileId>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
         </plugins>
@@ -202,6 +207,21 @@
                             <failOnMissingWebXml>false</failOnMissingWebXml>
                             <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
                             <webXml>${basedir}/src/weblogic/webapp/WEB-INF/web.xml</webXml>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.18.1</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                            <systemPropertyVariables>
+                                <!-- This is needed to tell the unit tests which profile
+                                we are running. -->
+                                <profileId>${project.activeProfiles[0].id}</profileId>
+                                <!-- This is needed to tell Arquillian which profile
+                                we are running. -->
+                                <arquillian.launch>${project.activeProfiles[0].id}</arquillian.launch>
+                            </systemPropertyVariables>
                         </configuration>
                     </plugin>
                 </plugins>

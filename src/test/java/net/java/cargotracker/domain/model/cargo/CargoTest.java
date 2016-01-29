@@ -155,7 +155,7 @@ public class CargoTest {
         assertTrue(cargo.getDelivery().isUnloadedAtDestination());
     }
 
-	// TODO: Generate test data some better way
+    // TODO: Generate test data some better way
     private Cargo populateCargoReceivedStockholm() throws Exception {
         Cargo cargo = new Cargo(new TrackingId("XYZ"), new RouteSpecification(
                 SampleLocations.STOCKHOLM, SampleLocations.MELBOURNE,

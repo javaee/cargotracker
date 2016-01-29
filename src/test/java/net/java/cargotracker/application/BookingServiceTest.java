@@ -93,7 +93,7 @@ public class BookingServiceTest {
 
     @Deployment
     public static WebArchive createDeployment() {
-        return ShrinkWrap
+        WebArchive war = ShrinkWrap
                 .create(WebArchive.class, "cargo-tracker-test.war")
                 // Application layer component directly under test.
                 .addClass(BookingService.class)
@@ -153,12 +153,21 @@ public class BookingServiceTest {
                 .addClass(DateUtil.class)
                 .addClass(BookingServiceTestRestConfiguration.class)
                 .addAsResource("META-INF/persistence.xml",
-                        "META-INF/persistence.xml")
-                .addAsWebInfResource("test-web.xml", "web.xml")
-                .addAsLibraries(
-                        Maven.resolver().loadPomFromFile("pom.xml")
-                        .resolve("org.apache.commons:commons-lang3")
-                        .withTransitivity().asFile());
+                        "META-INF/persistence.xml");
+
+        // The web.xml is slightly different for weblogic.
+        if (System.getProperty("profileId").equals("weblogic")) {
+            war.addAsWebInfResource("test-web-weblogic.xml", "web.xml");
+        } else {
+            war.addAsWebInfResource("test-web.xml", "web.xml");
+        }
+
+        war.addAsLibraries(
+                Maven.resolver().loadPomFromFile("pom.xml")
+                .resolve("org.apache.commons:commons-lang3")
+                .withTransitivity().asFile());
+
+        return war;
     }
 
     @Test
