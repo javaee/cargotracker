@@ -155,7 +155,6 @@ public class BookingServiceTest {
                 .addAsResource("META-INF/persistence.xml",
                         "META-INF/persistence.xml")
                 .addAsWebInfResource("test-web.xml", "web.xml")
-                .addAsWebInfResource("test-ejb-jar.xml", "ejb-jar.xml")
                 .addAsLibraries(
                         Maven.resolver().loadPomFromFile("pom.xml")
                         .resolve("org.apache.commons:commons-lang3")
