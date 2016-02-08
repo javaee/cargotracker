@@ -230,7 +230,7 @@ public class SampleDataGenerator {
 
         RouteSpecification routeSpecification3 = new RouteSpecification(
                 SampleLocations.HONGKONG, SampleLocations.MELBOURNE,
-                DateUtil.toDate("2015-11-18"));
+                DateUtil.toDate("2016-11-18"));
 
         Cargo def789 = new Cargo(trackingId3, routeSpecification3);
         entityManager.persist(def789);
