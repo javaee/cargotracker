@@ -15,6 +15,6 @@
         </view-handler>
         <navigation-handler>
             org.primefaces.mobile.application.MobileNavigationHandler
-        </navigation-handler>        
+        </navigation-handler>
     </application>
 </faces-config>
