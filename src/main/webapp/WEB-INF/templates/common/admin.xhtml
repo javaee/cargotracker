@@ -8,16 +8,12 @@
         <title><ui:insert name="title">Title</ui:insert></title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!--h:outputStylesheet name="foundation/css/foundation.css" /-->
-        <!--h:outputStylesheet name="cargotracker.css" /-->
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"></link>
         <h:outputStylesheet name="calendar.css" />
         <h:outputStylesheet name="dd.css"/>
         <ui:debug hotkey="x" />
     </h:head>
-
     <h:body>
-
         <p:layout fullPage="true">
             <p:layoutUnit position="north" class="decoration">
                 <div class="ui-grid ui-grid-responsive">
@@ -28,7 +24,6 @@
                                 <img src="../images/CTlogobadge128.png" style="padding-top: 10px;" height="30"/>&#160;&#160;&#160;
                                 <h:outputText styleClass="titleText" value="Cargo Tracker" /><nospan style="font-size:.85em">&nbsp;- Powered by Java EE 7</nospan>
                             </a></div>
-                        
                         <div class="ui-grid-col-5 alignRight" style="padding-top: 26px;">
                             <h:form>
                                 <h:commandLink value="Dashboard" action="/admin/dashboard.xhtml" styleClass="headerLink"/>
@@ -46,15 +41,13 @@
                     </div>
                 </div>
             </p:layoutUnit>
-
             <p:layoutUnit position="center" >
                 <div id="body">
                     <ui:insert name="content">Default Content</ui:insert>
                 </div>
             </p:layoutUnit>
-
             <p:layoutUnit position="south" size="50" class="clearCargoBkg" style="margin: 0 auto;">
-                <center> <!-- TODO: change center CCS -->
+                <center> <!-- TODO: change center to CCS -->
                     <p:separator/>
                     <p:outputLabel style="center"><a href="http://www.oracle.com/us/legal/terms/index.html" class="footerText">Copyright &#169; Oracle 2015 and its affiliates.</a></p:outputLabel>
                 </center>
