@@ -97,7 +97,7 @@ public class Track implements Serializable {
         return markersModel;
     }
 
-    public List<String> completeTracking(String query) {
+    public List<String> getTrackingIds(String query) {
         List<TrackingId> oldList = cargoRepository.getAllTrackingId();
         List<String> newList = new ArrayList<>(oldList.size());
         for (TrackingId oldId : oldList) {

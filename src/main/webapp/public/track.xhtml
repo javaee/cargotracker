@@ -14,7 +14,7 @@
                         <br/>
                         <h:form id="trackingForm">
                             <p:outputLabel value="Tracking ID  " />
-                            <p:autoComplete id="trackIdInput" value="#{track.trackingId}" required="true" forceSelection="true" completeMethod="#{track.completeTracking}" />
+                            <p:autoComplete id="trackIdInput" value="#{track.trackingId}" required="true" forceSelection="true" completeMethod="#{track.getTrackingIds}" />
                             <p:commandButton value="Track!" actionListener="#{track.onTrackById}" ajax="false"/>
                         </h:form>
                         <br/>
@@ -23,21 +23,18 @@
                                 <p>Cargo <strong>#{track.cargo.trackingId}</strong> is currently <strong>#{track.cargo.statusText}</strong></p>
                                 <p>Estimated time of arrival in <strong>#{track.cargo.destination}</strong>: #{track.cargo.eta}</p>
                                 <f:facet name="nextActivity" rendered="#{track.cargo.nextExpectedActivity}"><p>.#{track.cargo.nextExpectedActivity}.</p></f:facet>
-
                                 <h:panelGroup rendered="#{track.cargo.misdirected}">
                                     <p><i class="fa fa-exclamation-triangle" style="color: #9b2332"></i> Cargo is misdirected.</p>
                                 </h:panelGroup>
-
                                 <h:panelGroup rendered="#{not empty track.cargo.events}">
                                     <strong>Handling History</strong><br/>
-
                                     <ui:repeat value="#{track.cargo.events}" var="leg">
                                         <ui:fragment rendered="#{leg.expected}">
                                             &#160;&#160;<i class="fa fa-check" style="color: green"/>&#160;#{leg.description}<br/>
                                         </ui:fragment>
                                         <ui:fragment rendered="#{!leg.expected}">
                                             &#160;&#160;<i class="fa fa-flag" style="color: #9b2332"/>&#160;#{leg.description}<br/>
-                                        </ui:fragment>     
+                                        </ui:fragment>
                                     </ui:repeat>
                                 </h:panelGroup>
                             </div>
@@ -51,7 +48,6 @@
                         <br/>
                         <h:panelGroup rendered="#{not empty track.destinationCoordinates}">
                             <p:gmap center="#{track.destinationCoordinates}" fitBounds="true" zoom="2" model="#{track.markersModel}" type="PLAN"  style="width:620px;height:360px;">
-                                <!-- p:ajax event="pointSelect" listener="#{track.onPointSelect}"/ --> 
                             </p:gmap>
                         </h:panelGroup>
                         <p:separator />

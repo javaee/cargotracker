@@ -2,19 +2,16 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
- 
     <h:head>
         <title>Change Destination</title>
         <h:outputStylesheet name="dd.css"/>
     </h:head>
-
     <h:body>
         <f:metadata>
             <f:viewParam name="trackingId"
                          value="#{changeDestination.trackingId}" />
             <f:viewAction action="#{changeDestination.load}" />
         </f:metadata>
-
         <h:form>
             <table>
                 <tbody>
@@ -22,12 +19,10 @@
                         <td><p:outputLabel value="Origin: " /></td>
                         <td><p:outputLabel value="#{changeDestination.cargo.originName}" /></td>
                     </tr>
-
                     <tr>
                         <td><p:outputLabel value="Current destination: " /></td>
                         <td><p:outputLabel value="#{changeDestination.cargo.finalDestinationName}" /></td>
                     </tr>
-
                     <tr>
                         <td><p:outputLabel value="New destination: " /></td>
                         <td><p:selectOneMenu
@@ -38,9 +33,7 @@
                                                itemValue="#{location.unLocode}" />
                             </p:selectOneMenu></td>
                     </tr>
-
                     <tr><td><br/><br/><br/><br/></td></tr> <!-- TODO: bottom align instead of this! -->
-                    
                     <tr>
                         <td>
                             <p:commandButton value="Cancel" action="#{changeDestinationDialog.cancel()}" />
@@ -54,6 +47,5 @@
                 </tbody>
             </table>
         </h:form>
-       
     </h:body>
 </html>
