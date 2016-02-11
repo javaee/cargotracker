@@ -4,11 +4,9 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-
     <ui:composition template="/WEB-INF/templates/common/admin.xhtml">
         <ui:define name="title">Route cargo #{cargoDetails.trackingId}</ui:define>
         <ui:define name="content">
-
             <f:metadata>
                 <f:viewParam name="trackingId" value="#{cargoDetails.trackingId}" />        
                 <!-- f:event type="preRenderView" listener="# {cargoDetails.setTrackingId(currentTracking.id)}"/ -->
