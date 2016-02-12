@@ -8,23 +8,16 @@
         <ui:define name="title">Route cargo #{cargoDetails.trackingId}</ui:define>
         <ui:define name="content">
             <f:metadata>
-                <f:viewParam name="trackingId" value="#{cargoDetails.trackingId}" />        
-                <!-- f:event type="preRenderView" listener="# {cargoDetails.setTrackingId(currentTracking.id)}"/ -->
-                <f:event type="preRenderView" listener="#{cargoDetails.load()}"/>
-                <f:viewParam name="trackingId" value="#{itinerarySelection.trackingId}" />        
-                <f:event type="preRenderView" listener="#{itinerarySelection.load}"/>               
+                <f:viewParam name="trackingId" value="#{cargoDetails.trackingId}" />
+                <f:event type="preRenderView" listener="#{cargoDetails.load}"/>
+                <f:viewParam name="trackingId" value="#{itinerarySelection.trackingId}" />
+                <f:event type="preRenderView" listener="#{itinerarySelection.load}"/>
             </f:metadata>
-
             <div class="ui-grid ui-grid-responsive">
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-2" id="leftCol"></div>
                     <div class="ui-grid-col-8" id="mainCol">
-                        <f:metadata>
-                            <f:viewParam name="trackingId" value="#{cargoDetails.trackingId}" />        
-                            <f:event type="preRenderView" listener="#{cargoDetails.load()}"/>
-                        </f:metadata>
                         <br/>
-
                         <p:outputLabel value="Set route of cargo #{cargoDetails.cargo.trackingId}" style="font-size:2em;font-weight:bolder;"/>
                         <p:separator/>
 
@@ -32,7 +25,7 @@
                             <p:outputLabel value="Origin:" style="color:#5392c3;font-weight: bold;"/>
                             <h:panelGroup>
                                 <p:outputLabel value="#{cargoDetails.cargo.originName}"/>
-                                <p:outputLabel value="&#160;&#160;#{cargoDetails.cargo.originCode}" style="color: #999999;font-size:.9em;"/> 
+                                <p:outputLabel value="&#160;&#160;#{cargoDetails.cargo.originCode}" style="color: #999999;font-size:.9em;"/>
                             </h:panelGroup>
 
                             <p:outputLabel value="Destination:" style="color: #5392c3;font-weight: bold;"/>
@@ -41,15 +34,15 @@
                                 <p:outputLabel value="&#160;&#160;#{cargoDetails.cargo.finalDestinationCode}" style="color: #999999;font-size:.9em;"/>
                             </h:panelGroup>
 
-                            <p:outputLabel value="Arrival deadline:" style="color: #5392c3;font-weight: bold;"/>    
+                            <p:outputLabel value="Arrival deadline:" style="color: #5392c3;font-weight: bold;"/>
                             <h:panelGroup>
-                                <p:outputLabel value="#{cargoDetails.cargo.arrivalDeadlineDate}"/> 
+                                <p:outputLabel value="#{cargoDetails.cargo.arrivalDeadlineDate}"/>
                                 <p:outputLabel value="&#160;&#160;#{cargoDetails.cargo.arrivalDeadlineTime}" style="color: #999999;font-size:.9em;"/><br/>
                             </h:panelGroup>
 
-                            <p:outputLabel value="Potential routes:" style="color: #5392c3;font-weight: bold;"/>    
+                            <p:outputLabel value="Potential routes:" style="color: #5392c3;font-weight: bold;"/>
                             <h:panelGroup>
-                                <p:outputLabel value="#{itinerarySelection.routeCandidates.size()}"/> 
+                                <p:outputLabel value="#{itinerarySelection.routeCandidates.size()}"/>
                             </h:panelGroup>
 
                         </h:panelGrid>
@@ -77,9 +70,9 @@
 
                             <ui:repeat value="#{itinerarySelection.routeCandidates}" var="itinerary" varStatus="itineraryStatus">
 
-                                <span class="success label">Route candidate #{itineraryStatus.index + 1}: </span>  
+                                <span class="success label">Route candidate #{itineraryStatus.index + 1}: </span>
                                 <p:commandLink action="#{itinerarySelection.assignItinerary(itineraryStatus.index)}"  style="text-decoration: none;">
-                                               <span style="color: #e8b44b; font-weight: bold;">Select</span></p:commandLink>
+                                    <span style="color: #e8b44b; font-weight: bold;">Select</span></p:commandLink>
 
                                 <p:dataTable var="legs" value="#{itinerary.legs}" style="text-align: center;" id="legs">
 
@@ -88,11 +81,11 @@
                                     </p:column>
 
                                     <p:column headerText="Load" style="text-align: center;">
-                                        <h:outputText value="#{legs.fromName}" style="font-weight: #{fn:startsWith(cargoDetails.cargo.originName, legs.fromName) ? 'bold' : 'normal'}" />                                        
+                                        <h:outputText value="#{legs.fromName}" style="font-weight: #{fn:startsWith(cargoDetails.cargo.originName, legs.fromName) ? 'bold' : 'normal'}" />
                                         <ui:fragment rendered="${fn:startsWith(cargoDetails.cargo.originName, legs.fromName)}">
                                             <i class="fa fa-arrow-right"></i>
                                         </ui:fragment>
-                                       
+
                                     </p:column>
 
                                     <p:column headerText="at" style="text-align: center;">
@@ -121,7 +114,7 @@
                             <!-- f:param name="trackingId"
                                          value="# {cargoDetails.cargo.trackingId}" /-->
                             <!-- h:link value="route this cargo"
-                                    outcome="selectItinerary.xhtml?faces-redirect=true" -->                           
+                                    outcome="selectItinerary.xhtml?faces-redirect=true" -->
                         </h:panelGroup>
 
                         <p:separator />
