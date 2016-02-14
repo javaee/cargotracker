@@ -1,7 +1,6 @@
 package net.java.cargotracker.interfaces.tracking.web;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -70,7 +69,12 @@ public class Track implements Serializable {
         this.cargo = cargo;
     }
 
-    // This is belongs in the view adapter.
+    // The query parameter is required by PrimeFaces but we don't use it.
+    public List<TrackingId> getTrackingIds(String query) {
+        return cargoRepository.getAllTrackingIds();
+    }
+
+    // These belong in the view adapter.
     public String getDestinationCoordinates() {
         return destinationCoordinates;
     }
@@ -103,19 +107,6 @@ public class Track implements Serializable {
         return mapModel;
     }
 
-    // The query parameter is required by PrimeFaces but we don't need it.
-    public List<String> getTrackingIds(String query) {
-        List<TrackingId> trackingIds = cargoRepository.getAllTrackingIds();
-
-        List<String> trackingIdStrings = new ArrayList(trackingIds.size());
-
-        for (TrackingId trackingId : trackingIds) {
-            trackingIdStrings.add(trackingId.getIdString());
-        }
-
-        return trackingIdStrings;
-    }
-
     public void onTrackById() {
         Cargo cargo = cargoRepository.find(new TrackingId(trackingId));
 
@@ -134,8 +125,5 @@ public class Track implements Serializable {
             context.addMessage(null, message);
             this.cargo = null;
         }
-    }
-
-    public void onPointSelect(PointSelectEvent event) {
     }
 }
