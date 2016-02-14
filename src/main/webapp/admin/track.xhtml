@@ -56,7 +56,7 @@
                     <div class="ui-grid-col-8" id="mainCol2">
                         <br/>
                         <h:panelGroup rendered="#{not empty track.destinationCoordinates}">
-                            <p:gmap center="#{track.destinationCoordinates}" fitBounds="true" zoom="2" model="#{track.markersModel}" type="PLAN"  style="width:620px;height:360px;">
+                            <p:gmap center="#{track.destinationCoordinates}" fitBounds="true" zoom="2" model="#{track.mapModel}" type="PLAN"  style="width:620px;height:360px;">
                                 <p:ajax event="pointSelect" listener="#{track.onPointSelect}"/> 
                             </p:gmap>
 

@@ -110,7 +110,7 @@ public class LocationUtil {
         }
     }
 
-    public static LatLng getPortLatLng(String portCode) {
+    public static LatLng getCoordinatesForLocation(String portCode) {
 
         switch (portCode.toUpperCase()) {
             case "USCHI":

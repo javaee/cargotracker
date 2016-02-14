@@ -97,7 +97,7 @@ import org.apache.commons.lang3.Validate;
             query = "Select c from Cargo c"),
     @NamedQuery(name = "Cargo.findByTrackingId",
             query = "Select c from Cargo c where c.trackingId = :trackingId"),
-    @NamedQuery(name = "Cargo.getAllTrackingId",
+    @NamedQuery(name = "Cargo.getAllTrackingIds",
             query = "Select c.trackingId from Cargo c") })
 public class Cargo implements Serializable {
 

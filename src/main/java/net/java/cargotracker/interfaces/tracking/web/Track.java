@@ -9,7 +9,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import static net.java.cargotracker.application.util.LocationUtil.getCode;
-import static net.java.cargotracker.application.util.LocationUtil.getPortLatLng;
+import static net.java.cargotracker.application.util.LocationUtil.getCoordinatesForLocation;
 import net.java.cargotracker.domain.model.cargo.Cargo;
 import net.java.cargotracker.domain.model.cargo.CargoRepository;
 import net.java.cargotracker.domain.model.cargo.TrackingId;
@@ -28,9 +28,10 @@ import org.primefaces.model.map.Marker;
  * An adapter class, designed for the tracking use case, is used to wrap the
  * domain model to make it easier to work with in a web page rendering context.
  * We do not want to apply view rendering constraints to the design of our
- * domain model, and the adapter helps us shield the domain model classes.
+ * domain model and the adapter helps us shield the domain model classes where
+ * needed.
  * <p/>
- * In some very simplistic cases, it may be fine to not use even an adapter.
+ * In some very simplistic cases, it is fine to not use even an adapter.
  */
 @Named
 @ViewScoped
@@ -46,8 +47,7 @@ public class Track implements Serializable {
     private String trackingId;
     private CargoTrackingViewAdapter cargo;
     private String destinationCoordinates;
-    private String lastKnowCoordinates;
-    private MapModel markersModel;
+    private String lastKnownCoordinates;
 
     public String getTrackingId() {
         return trackingId;
@@ -70,54 +70,53 @@ public class Track implements Serializable {
         this.cargo = cargo;
     }
 
-    public MapModel getMarkersModel() {
-        
-        String origin = getCode(cargo.getOrigin());
-        String dest = getCode(cargo.getDestination());
-        String lastKnowLoc = "XXXX"; // "XXXX" = unknow
-        
-        try {
-            lastKnowLoc = cargo.getLastKnowLocation().getUnLocode().getIdString();
-        } catch (Exception e) {
-            // todo : check why lastloc is null
-        }        
-                
-        if (origin != null && !origin.isEmpty()) {
-            markersModel.addOverlay(new Marker(getPortLatLng(origin), "Origin: " + cargo.getOrigin()));
-        } 
-        
-        if (dest != null && !dest.isEmpty()) {
-            markersModel.addOverlay(new Marker(getPortLatLng(dest), "Final destination: " + cargo.getDestination()));
-        }
-        if (lastKnowLoc != null && !lastKnowLoc.isEmpty() && !lastKnowLoc.toUpperCase().contains("XXXX")) {
-                String lastKnownLocName = cargo.getLastKnowLocation().getName();
-                markersModel.addOverlay(new Marker(getPortLatLng(lastKnowLoc), "Last known location: " + lastKnownLocName)); 
-        } 
-                
-        return markersModel;
-    }
-
-    public List<String> getTrackingIds(String query) {
-        List<TrackingId> oldList = cargoRepository.getAllTrackingId();
-        List<String> newList = new ArrayList<>(oldList.size());
-        for (TrackingId oldId : oldList) {
-            newList.add(oldId.getIdString());
-        }
-        return newList;
-    }
-
+    // This is belongs in the view adapter.
     public String getDestinationCoordinates() {
         return destinationCoordinates;
     }
-    
-    public String getLastKnowCoordinate() {
-        return lastKnowCoordinates;
+
+    public String getLastKnownCoordinate() {
+        return lastKnownCoordinates;
+    }
+
+    public MapModel getMapModel() {
+        MapModel mapModel = new DefaultMapModel();
+
+        String origin = getCode(cargo.getOrigin());
+        String destination = getCode(cargo.getDestination());
+        String lastKnownLocation = "XXXX";
+
+        lastKnownLocation = cargo.getLastKnowLocation().getUnLocode().getIdString();
+
+        if (origin != null && !origin.isEmpty()) {
+            mapModel.addOverlay(new Marker(getCoordinatesForLocation(origin), "Origin: " + cargo.getOrigin()));
+        }
+
+        if (destination != null && !destination.isEmpty()) {
+            mapModel.addOverlay(new Marker(getCoordinatesForLocation(destination), "Final destination: " + cargo.getDestination()));
+        }
+        if (lastKnownLocation != null && !lastKnownLocation.isEmpty() && !lastKnownLocation.toUpperCase().contains("XXXX")) {
+            String lastKnownLocName = cargo.getLastKnowLocation().getName();
+            mapModel.addOverlay(new Marker(getCoordinatesForLocation(lastKnownLocation), "Last known location: " + lastKnownLocName));
+        }
+
+        return mapModel;
+    }
+
+    // The query parameter is required by PrimeFaces but we don't need it.
+    public List<String> getTrackingIds(String query) {
+        List<TrackingId> trackingIds = cargoRepository.getAllTrackingIds();
+
+        List<String> trackingIdStrings = new ArrayList(trackingIds.size());
+
+        for (TrackingId trackingId : trackingIds) {
+            trackingIdStrings.add(trackingId.getIdString());
+        }
+
+        return trackingIdStrings;
     }
 
     public void onTrackById() {
-
-        markersModel = new DefaultMapModel();
-
         Cargo cargo = cargoRepository.find(new TrackingId(trackingId));
 
         if (cargo != null) {
@@ -126,7 +125,6 @@ public class Track implements Serializable {
                     .getDistinctEventsByCompletionTime();
             this.cargo = new CargoTrackingViewAdapter(cargo, handlingEvents);
             this.destinationCoordinates = net.java.cargotracker.application.util.LocationUtil.getPortCoordinates(cargo.getRouteSpecification().getDestination().getUnLocode().getIdString());
-
         } else {
             // TODO See if this can be injected.
             FacesContext context = FacesContext.getCurrentInstance();
@@ -139,8 +137,5 @@ public class Track implements Serializable {
     }
 
     public void onPointSelect(PointSelectEvent event) {
-        // TODO: handle whe  Map clicked
-        //LatLng latlng = event.getLatLng();
-        //addMessage(new FacesMessage(FacesMessage.SEVERITY_INFO, "CLick", ""));
     }
 }
