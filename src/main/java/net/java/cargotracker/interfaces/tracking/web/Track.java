@@ -7,17 +7,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import static net.java.cargotracker.application.util.LocationUtil.getCode;
-import static net.java.cargotracker.application.util.LocationUtil.getCoordinatesForLocation;
 import net.java.cargotracker.domain.model.cargo.Cargo;
 import net.java.cargotracker.domain.model.cargo.CargoRepository;
 import net.java.cargotracker.domain.model.cargo.TrackingId;
 import net.java.cargotracker.domain.model.handling.HandlingEvent;
 import net.java.cargotracker.domain.model.handling.HandlingEventRepository;
-import org.primefaces.event.map.PointSelectEvent;
-import org.primefaces.model.map.DefaultMapModel;
-import org.primefaces.model.map.MapModel;
-import org.primefaces.model.map.Marker;
 
 /**
  * Backing bean for tracking cargo. This interface sits immediately on top of
@@ -45,8 +39,6 @@ public class Track implements Serializable {
 
     private String trackingId;
     private CargoTrackingViewAdapter cargo;
-    private String destinationCoordinates;
-    private String lastKnownCoordinates;
 
     public String getTrackingId() {
         return trackingId;
@@ -74,39 +66,6 @@ public class Track implements Serializable {
         return cargoRepository.getAllTrackingIds();
     }
 
-    // These belong in the view adapter.
-    public String getDestinationCoordinates() {
-        return destinationCoordinates;
-    }
-
-    public String getLastKnownCoordinate() {
-        return lastKnownCoordinates;
-    }
-
-    public MapModel getMapModel() {
-        MapModel mapModel = new DefaultMapModel();
-
-        String origin = getCode(cargo.getOrigin());
-        String destination = getCode(cargo.getDestination());
-        String lastKnownLocation = "XXXX";
-
-        lastKnownLocation = cargo.getLastKnowLocation().getUnLocode().getIdString();
-
-        if (origin != null && !origin.isEmpty()) {
-            mapModel.addOverlay(new Marker(getCoordinatesForLocation(origin), "Origin: " + cargo.getOrigin()));
-        }
-
-        if (destination != null && !destination.isEmpty()) {
-            mapModel.addOverlay(new Marker(getCoordinatesForLocation(destination), "Final destination: " + cargo.getDestination()));
-        }
-        if (lastKnownLocation != null && !lastKnownLocation.isEmpty() && !lastKnownLocation.toUpperCase().contains("XXXX")) {
-            String lastKnownLocName = cargo.getLastKnowLocation().getName();
-            mapModel.addOverlay(new Marker(getCoordinatesForLocation(lastKnownLocation), "Last known location: " + lastKnownLocName));
-        }
-
-        return mapModel;
-    }
-
     public void onTrackById() {
         Cargo cargo = cargoRepository.find(new TrackingId(trackingId));
 
@@ -115,7 +74,6 @@ public class Track implements Serializable {
                     .lookupHandlingHistoryOfCargo(new TrackingId(trackingId))
                     .getDistinctEventsByCompletionTime();
             this.cargo = new CargoTrackingViewAdapter(cargo, handlingEvents);
-            this.destinationCoordinates = net.java.cargotracker.application.util.LocationUtil.getPortCoordinates(cargo.getRouteSpecification().getDestination().getUnLocode().getIdString());
         } else {
             // TODO See if this can be injected.
             FacesContext context = FacesContext.getCurrentInstance();

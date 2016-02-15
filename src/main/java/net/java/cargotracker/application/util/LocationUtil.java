@@ -77,7 +77,6 @@ public class LocationUtil {
     }
 
     public static String getCode(String city) {
-
         switch (city.toUpperCase()) {
             case "CHICAGO":
                 return "USCHI";
@@ -111,7 +110,6 @@ public class LocationUtil {
     }
 
     public static LatLng getCoordinatesForLocation(String portCode) {
-
         switch (portCode.toUpperCase()) {
             case "USCHI":
                 return new LatLng(41.5, -87.38);
