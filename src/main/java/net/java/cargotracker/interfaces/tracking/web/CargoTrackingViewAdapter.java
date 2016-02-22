@@ -58,7 +58,7 @@ public class CargoTrackingViewAdapter {
     }
 
     /**
-     * @return A translated string describing the cargo status.
+     * @return A readable string describing the cargo status.
      */
     public String getStatusText() {
         Delivery delivery = cargo.getDelivery();
@@ -125,6 +125,10 @@ public class CargoTrackingViewAdapter {
         return Collections.unmodifiableList(events);
     }
 
+    /**
+     * @return The model for Google maps showing origin, destination 
+     * and last known location.
+     */
     public MapModel getMapModel() {
         MapModel mapModel = new DefaultMapModel();
 
