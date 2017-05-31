@@ -19,7 +19,7 @@ The application is an end-to-end system for keeping track of shipping cargo. It
 has several interfaces described in the following sections.
 
 For further details on the project, please visit:
-http://cargotracker.java.net
+https://github.com/javaee/cargotracker
 
 Getting Started
 ===============
