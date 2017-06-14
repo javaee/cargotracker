@@ -8,7 +8,7 @@ submissions from users who have signed and returned the Oracle
 Contributor Agreement. You will find details and the agreement to sign at this OTN web page: 
 [Oracle Contributor Agreement](http://www.oracle.com/technetwork/community/oca-486395.html). 
 
-# Other Contributions
+# Other Contrbutions
 For all project Submissions other than source code repository contributions, the following also applies: Oracle does 
 not claim ownership of Your Submissions. However, in order to fulfill 
 the purposes of this project, You must give Oracle and all Users 
@@ -27,4 +27,4 @@ included in Your Submissions. All Users, Oracle, and their
 sublicensees are responsible for any modifications they make to the 
 Submissions of others.*
 
-Copyright &copy; 2017 Oracle and/or its affiliates. All rights reserved.
+Copyright &copy; 2017 Oracle and/or its affiliates. All rights reserved
