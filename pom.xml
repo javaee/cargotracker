@@ -26,6 +26,18 @@
             <id>primefaces</id>
             <url>http://repository.primefaces.org</url>
         </repository>
+        <repository>
+            <id>ossrh</id>
+            <name>Sonatype-snapshot</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
     </repositories>
 
     <dependencyManagement>
@@ -34,7 +46,7 @@
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.1.10.Final</version>
+                <version>1.1.13.Final</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -54,13 +66,13 @@
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet-core</artifactId>
-            <version>2.0</version>
+            <version>2.25.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-moxy</artifactId>
-            <version>2.0</version>
+            <version>2.25.1</version>
             <scope>provided</scope>
         </dependency>
 
@@ -68,7 +80,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
+            <version>3.6</version>
             <scope>compile</scope>
         </dependency>
 
@@ -76,7 +88,7 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>5.2</version>
+            <version>6.1</version>
         </dependency>
         <dependency>
             <groupId>org.primefaces.themes</groupId>
@@ -96,11 +108,18 @@
             <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>net.sourceforge.htmlunit</groupId>
+            <artifactId>htmlunit</artifactId>
+            <version>2.27</version>
+            <scope>test</scope>
+        </dependency>
         <!-- Resolvers are needed in the Arquillian tests -->
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
-            <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+            <artifactId>shrinkwrap-resolver-depchain</artifactId>
             <scope>test</scope>
+            <type>pom</type>
         </dependency>
     </dependencies>
 
@@ -132,7 +151,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.18.1</version>
                 <configuration>
-                    <skipTests>true</skipTests>
                     <systemPropertyVariables>
                         <!-- This is needed to tell the unit tests which profile
                         we are running. -->
@@ -140,16 +158,58 @@
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.jboss.shrinkwrap.resolver</groupId>
+                <artifactId>shrinkwrap-resolver-maven-plugin</artifactId>
+                <version>2.2.6</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>propagate-execution-context</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
     <profiles>
-        <!-- GlassFish specific version of build -->
+        <!-- Payara specific version of build -->
         <profile>
-            <id>glassfish</id>
+            <id>payara</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.omnifaces</groupId>
+                    <artifactId>arquillian-payara-server-4-remote</artifactId>
+                    <version>1.0-beta-SNAPSHOT</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven2-plugin</artifactId>
+                        <version>1.4.14</version>
+                        <configuration>
+                            <container>
+                                <containerId>glassfish4x</containerId>
+                            </container>
+                            <properties>
+                                <context>cargo-tracker</context>
+                            </properties>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- GlassFish specific version of build -->
+        <profile>
+            <id>glassfish</id>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>

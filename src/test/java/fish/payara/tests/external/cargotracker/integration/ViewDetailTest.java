@@ -1,37 +1,14 @@
-package fish.payara.cargotracker.integration;
+package fish.payara.tests.external.cargotracker.integration;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-import net.java.cargotracker.application.internal.DefaultBookingService;
-import net.java.cargotracker.application.util.DateUtil;
-import net.java.cargotracker.application.util.JsonMoxyConfigurationContextResolver;
-import net.java.cargotracker.domain.model.cargo.*;
-import net.java.cargotracker.domain.model.handling.*;
-import net.java.cargotracker.domain.model.location.Location;
-import net.java.cargotracker.domain.model.location.LocationRepository;
-import net.java.cargotracker.domain.model.location.SampleLocations;
-import net.java.cargotracker.domain.model.location.UnLocode;
-import net.java.cargotracker.domain.model.voyage.*;
-import net.java.cargotracker.domain.service.RoutingService;
-import net.java.cargotracker.domain.shared.*;
-import net.java.cargotracker.infrastructure.persistence.jpa.JpaCargoRepository;
-import net.java.cargotracker.infrastructure.persistence.jpa.JpaHandlingEventRepository;
-import net.java.cargotracker.infrastructure.persistence.jpa.JpaLocationRepository;
-import net.java.cargotracker.infrastructure.persistence.jpa.JpaVoyageRepository;
-import net.java.cargotracker.infrastructure.routing.ExternalRoutingService;
-import net.java.pathfinder.api.GraphTraversalService;
-import net.java.pathfinder.api.TransitEdge;
-import net.java.pathfinder.api.TransitPath;
-import net.java.pathfinder.internal.GraphDao;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.jboss.shrinkwrap.resolver.api.maven.archive.importer.MavenImporter;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -45,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.hamcrest.CoreMatchers.is;
+import org.jboss.shrinkwrap.resolver.api.maven.archive.importer.MavenImporter;
 
 /**
  * @author Fraser Savage
