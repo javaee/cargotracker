@@ -6,7 +6,10 @@
     <engine>
         <property name="deploymentExportPath">target/</property>
     </engine>
-    <container qualifier="glassfish" default="true">
+    
+    <container qualifier="payara" default="true">
+    </container>
+    <container qualifier="glassfish">
         <configuration>
             <!-- <property name="outputToConsole">true</property> -->
         </configuration>
