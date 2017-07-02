@@ -200,7 +200,7 @@ public class BookingServiceTest {
                 .getLastKnownLocation());
         assertEquals(Voyage.NONE, cargo.getDelivery().getCurrentVoyage());
         assertFalse(cargo.getDelivery().isMisdirected());
-        assertEquals(Delivery.ETA_UNKOWN, cargo.getDelivery()
+        assertEquals(Delivery.ETA_UNKNOWN, cargo.getDelivery()
                 .getEstimatedTimeOfArrival());
         assertEquals(Delivery.NO_ACTIVITY, cargo.getDelivery()
                 .getNextExpectedActivity());
@@ -271,7 +271,7 @@ public class BookingServiceTest {
                 .getLastKnownLocation());
         assertEquals(Voyage.NONE, cargo.getDelivery().getCurrentVoyage());
         assertFalse(cargo.getDelivery().isMisdirected());
-        assertEquals(Delivery.ETA_UNKOWN, cargo.getDelivery()
+        assertEquals(Delivery.ETA_UNKNOWN, cargo.getDelivery()
                 .getEstimatedTimeOfArrival());
         assertEquals(Delivery.NO_ACTIVITY, cargo.getDelivery()
                 .getNextExpectedActivity());

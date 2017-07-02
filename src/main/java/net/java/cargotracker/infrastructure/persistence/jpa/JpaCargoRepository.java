@@ -36,7 +36,7 @@ public class JpaCargoRepository implements CargoRepository, Serializable {
                     .setParameter("trackingId", trackingId)
                     .getSingleResult();
         } catch (NoResultException e) {
-            logger.log(Level.FINE, "Find called on non-existant tracking ID.", e);
+            logger.log(Level.FINE, "Find called on non-existent tracking ID.", e);
             cargo = null;
         }
 

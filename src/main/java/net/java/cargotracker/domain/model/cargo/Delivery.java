@@ -33,7 +33,7 @@ public class Delivery implements Serializable {
 
     private static final long serialVersionUID = 1L;
     // Null object pattern.
-    public static final Date ETA_UNKOWN = null;
+    public static final Date ETA_UNKNOWN = null;
     // Null object pattern
     public static final HandlingActivity NO_ACTIVITY = new HandlingActivity();
     @Enumerated(EnumType.STRING)
@@ -165,10 +165,10 @@ public class Delivery implements Serializable {
     }
 
     public Date getEstimatedTimeOfArrival() {
-        if (eta != ETA_UNKOWN) {
+        if (eta != ETA_UNKNOWN) {
             return new Date(eta.getTime());
         } else {
-            return ETA_UNKOWN;
+            return ETA_UNKNOWN;
         }
     }
 
@@ -253,7 +253,7 @@ public class Delivery implements Serializable {
         if (onTrack()) {
             return itinerary.getFinalArrivalDate();
         } else {
-            return ETA_UNKOWN;
+            return ETA_UNKNOWN;
         }
     }
 
