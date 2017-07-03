@@ -62,7 +62,7 @@ public class RealtimeCargoTrackingService {
 
         sessions.parallelStream().
                 filter(Session::isSecure).
-                peek(session -> logger.log(Level.INFO, session.getId()))
+                peek(session -> logger.log(Level.INFO, session.getId())).
                 forEach(session -> {
                     try {
                         session.getBasicRemote().sendText(jsonValue);
