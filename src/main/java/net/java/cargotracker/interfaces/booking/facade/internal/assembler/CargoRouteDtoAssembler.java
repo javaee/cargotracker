@@ -6,10 +6,12 @@ import net.java.cargotracker.domain.model.cargo.RoutingStatus;
 import net.java.cargotracker.domain.model.cargo.TransportStatus;
 import net.java.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 
-// TODO Convert to a singleton and inject?
-public class CargoRouteDtoAssembler {
+import java.util.function.Function;
 
-    public CargoRoute toDto(Cargo cargo) {
+// TODO Convert to a singleton and inject?
+public class CargoRouteDtoAssembler implements Function<Cargo, CargoRoute> {
+
+    public CargoRoute apply(Cargo cargo) {
         CargoRoute dto = new CargoRoute(
                 cargo.getTrackingId().getIdString(),
                 cargo.getOrigin().getName() + " (" + cargo.getOrigin().getUnLocode().getIdString() + ")",

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import net.java.cargotracker.application.BookingService;
@@ -56,7 +58,7 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade,
     public CargoRoute loadCargoForRouting(String trackingId) {
         Cargo cargo = cargoRepository.find(new TrackingId(trackingId));
         CargoRouteDtoAssembler assembler = new CargoRouteDtoAssembler();
-        return assembler.toDto(cargo);
+        return assembler.apply(cargo);
     }
 
     @Override
@@ -83,11 +85,9 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade,
 
         CargoRouteDtoAssembler assembler = new CargoRouteDtoAssembler();
 
-        for (Cargo cargo : cargos) {
-            routes.add(assembler.toDto(cargo));
-        }
-
-        return routes;
+        return cargos.stream().
+                map(assembler).
+                collect(Collectors.toList());
     }
 
     @Override

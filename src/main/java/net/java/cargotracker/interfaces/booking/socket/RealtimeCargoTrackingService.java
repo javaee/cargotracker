@@ -60,13 +60,16 @@ public class RealtimeCargoTrackingService {
 
         String jsonValue = writer.toString();
 
-        for (Session session : sessions) {
-            try {
-                session.getBasicRemote().sendText(jsonValue);
-            } catch (IOException ex) {
-                logger.log(Level.WARNING, "Unable to publish WebSocket message", ex);
-            }
-        }
+        sessions.parallelStream().
+                filter(Session::isSecure).
+                peek(session -> logger.log(Level.INFO, session.getId()))
+                forEach(session -> {
+                    try {
+                        session.getBasicRemote().sendText(jsonValue);
+                    } catch (IOException ex) {
+                        logger.log(Level.WARNING, "Unable to publish WebSocket message", ex);
+                    }
+                });
 
     }
 }
