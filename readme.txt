@@ -8,7 +8,7 @@ Overview
 The project demonstrates how you can develop applications with the Java EE 
 platform using widely adopted architectural best practices like Domain-Driven 
 Design (DDD), TDD and agile. The project is directly based on the well known 
-original Java DDD sample (http://dddsample.sourceforge.net) application 
+original Java DDD sample (https://github.com/citerus/dddsample-core) application 
 developed by DDD pioneer Eric Evans' company Domain Language and the Swedish 
 software consulting company Citerus. The cargo example actually comes from 
 Eric Evans' seminal book on DDD. The original application is written in Spring,
@@ -29,7 +29,7 @@ https://java.net/projects/cargotracker/pages/NetBeans.
 
 The simplest steps are the following (no IDE required):
 
-* Get the project source code: https://java.net/projects/cargotracker/downloads
+* Get the project source code: https://github.com/javaee/cargotracker
 * As long as you have Maven set up, navigate to the project source root and 
   type: mvn package cargo:run
 * To run with WildFly 8x, type: mvn -Pwildfly package cargo:run
@@ -172,8 +172,8 @@ Cargo Tracker is an open source project hosted on java.net. We would welcome any
 and all contributions.
 
 The project mailing lists are here: https://java.net/projects/cargotracker/lists
-The JIRA issue tracker is here: http://java.net/jira/browse/CARGOTRACKER
+The issue tracker is here: https://github.com/javaee/cargotracker/issues
 
-You can also send an email to reza.rahman@oracle.com with any questions, 
+You can also send an email to m.reza.rahman@gmail.com with any questions, 
 concerns or suggestions.
 
