@@ -56,12 +56,13 @@ node {
         }
 
         stage('Run Tests') {
-            sh "${mvn} test -DskipTests=false"
-
-            junit([
-                allowEmptyResults: true, 
-                testResults: 'target/surefire-reports/**/*.xml' 
-            ])
+            try {
+                sh "${mvn} test \
+                           -DskipTests=false"
+            } catch(err) {
+                echo 'Encountered failed tests'
+                currentBuild.result = 'FAILURE'
+            }
         }
 
         stage('Publish Static Code Analysis Report'){
@@ -94,16 +95,10 @@ node {
         }
 
         stage('Publish Test Results Report'){
-            publishHTML(
-                target: [
-                    allowMissing: true,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: './target/surefire-reports',
-                    reportFiles: 'index.html',
-                    reportName: 'Tests'
-                ]
-            )
+            junit([
+                allowEmptyResults: true, 
+                testResults: 'target/surefire-reports/**/*.xml' 
+            ])
         }
 
         stage('Cleanup'){
