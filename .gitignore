@@ -1,0 +1,17 @@
+# Maven generated artifacts
+/target
+
+# IntelliJ IDEA generated artifacts
+/.idea
+/*.iml
+
+# NetBeans
+/eventLogger-flow.NavData
+/faces-cofig.NavData
+/nb-configuration.xml
+/nbactions.xml
+
+# Eclipse
+.classpath
+.project
+.settings/

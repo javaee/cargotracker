@@ -18,6 +18,7 @@
         <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
         <webapp.databaseTempDir>/tmp</webapp.databaseTempDir>
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
+        <skipTests>true</skipTests>
     </properties>
 
     <!-- We need to use the PrimeFaces repository -->
@@ -132,7 +133,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.18.1</version>
                 <configuration>
-                    <skipTests>true</skipTests>
+                    <skipTests>${skipTests}</skipTests>
                     <systemPropertyVariables>
                         <!-- This is needed to tell the unit tests which profile
                         we are running. -->
