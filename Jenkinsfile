@@ -47,9 +47,9 @@ node {
                                    -Dsonar.host.url=https://sonarcloud.io \
                                    -Dsonar.organization=$SONAR_USERNAME \
                                    -Dsonar.login=$SONAR_PASSWORD \
-                                   -Dsonar.projectKey=ro.satrapu:codecamp.cj.2016 \
+                                   -Dsonar.projectKey=ro.satrapu:cargotracker \
                                    -Dsonar.sources=. \
-                                   -Dsonar.exclusions=**/*.class,**/*.sh,**/Jenkinsfile \
+                                   -Dsonar.exclusions=**/*.class,Jenkinsfile \
                                    -Dsonar.sourceEncoding=UTF-8"
                     }
 
