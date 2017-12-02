@@ -61,7 +61,7 @@ node {
                 <html>
                     <body>
                         <h1>
-                            Right click <a href="https://sonarcloud.io/dashboard" target="_parent">here</a> for the external Sonar report.
+                            Right click <a href="https://sonarcloud.io/dashboard?id=ro.satrapu%3Acargotracker" target="_parent">here</a> for the external Sonar report.
                         </h1>
                     </body>
                 </html
