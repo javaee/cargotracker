@@ -56,7 +56,7 @@ node {
         }
 
         stage('Run Tests') {
-            sh "${mvn} test"
+            sh "${mvn} test -DskipTests=false"
 
             junit([
                 allowEmptyResults: true, 
