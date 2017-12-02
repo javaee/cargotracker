@@ -1,0 +1,14 @@
+# Maven generated artifacts
+/target
+
+# IntelliJ IDEA generated artifacts
+/.idea
+/*.iml
+
+# NetBeans
+/nb-configuration.xml
+
+# Eclipse
+.classpath
+.project
+.settings/
