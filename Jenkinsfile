@@ -48,11 +48,23 @@ node {
                                    -Dsonar.organization=$SONAR_USERNAME \
                                    -Dsonar.login=$SONAR_PASSWORD \
                                    -Dsonar.projectKey=ro.satrapu:cargotracker \
-                                   -Dsonar.sources=. \
+                                   -Dsonar.sources=src/main/java \
+                                   -Dsonar.test.sources=src/test/java \
                                    -Dsonar.exclusions=**/*.class,Jenkinsfile \
                                    -Dsonar.sourceEncoding=UTF-8"
                     }
+        }
 
+        stage('Run Tests') {
+            sh "${mvn} test"
+
+            junit([
+                allowEmptyResults: true, 
+                testResults: 'target/surefire-reports/**/*.xml' 
+            ])
+        }
+
+        stage('Publish Static Code Analysis Report'){
             // Since there is no Sonar report generated inside the current Jenkins workspace,
             // we need to generate an HTML document containing the link to the report hosted on sonarcloud.io site.
             sh 'mkdir -p ./target/sonarcloud-report'
@@ -71,8 +83,8 @@ node {
             // You need to install HTML Publisher Jenkins plugin to be able to use "publishHTML" step.
             publishHTML(
                 target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: false,
+                    allowMissing: true,
+                    alwaysLinkToLastBuild: true,
                     keepAll: true,
                     reportDir: './target/sonarcloud-report',
                     reportFiles: 'index.html',
@@ -81,13 +93,17 @@ node {
             )
         }
 
-        stage('Tests') {
-            sh "${mvn} test"
-
-            junit([
-                allowEmptyResults: true, 
-                testResults: 'target/surefire-reports/**/*.xml' 
-            ])
+        stage('Publish Test Results Report'){
+            publishHTML(
+                target: [
+                    allowMissing: true,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: './target/surefire-reports',
+                    reportFiles: 'index.html',
+                    reportName: 'Tests'
+                ]
+            )
         }
 
         stage('Cleanup'){
