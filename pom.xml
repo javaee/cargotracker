@@ -224,6 +224,30 @@
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
+                    <plugin> 
+                        <groupId>com.oracle.weblogic</groupId> 
+                        <artifactId>weblogic-maven-plugin</artifactId> 
+                        <version>12.2.1-3-0</version> 
+                        <configuration> 
+                            <adminurl>t3://localhost:7001</adminurl>
+                            <user>weblogic</user> 
+                            <password>welcome1</password> 
+                            <upload>true</upload> 
+                            <action>deploy</action> 
+                            <remote>false</remote> 
+                            <verbose>true</verbose> 
+                            <source>${project.build.directory}/${project.build.finalName}.${project.packaging}</source> 
+                            <name>${project.build.finalName}</name> 
+                        </configuration> 
+                        <executions> 
+                            <execution> 
+                                <phase>install</phase> 
+                                <goals> 
+                                    <goal>deploy</goal> 
+                                </goals> 
+                            </execution> 
+                        </executions> 
+                    </plugin> 
                 </plugins>
             </build>
         </profile>
