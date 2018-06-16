@@ -230,6 +230,7 @@
                         <version>12.2.1-3-0</version> 
                         <configuration> 
                             <adminurl>t3://localhost:7001</adminurl>
+                            <!-- modify username and password as appropriate -->
                             <user>weblogic</user> 
                             <password>welcome1</password> 
                             <upload>true</upload> 
