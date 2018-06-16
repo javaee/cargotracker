@@ -12,7 +12,7 @@ Steps
 
 2°) Adjust if needed the WebLogic credentials in the pom.xml.
 
-3°) Deploy Cargo Tracker using the weblogic profile : mvn -Pweblogic clean package com.oracle.weblogic:weblogic-maven-plugin:deploy
+3°) Deploy Cargo Tracker using the weblogic profile (substitute path to cargo-tracker.war as appropriate) : mvn -Pweblogic clean package com.oracle.weblogic:weblogic-maven-plugin:deploy -Dsource=/path/to/cargo-tracker.war
 
 4°) Go to http://localhost:7001/cargo-tracker
 
